@@ -1,5 +1,5 @@
 #include "leitor.h"
-
+/*
 ClassFile readFile(char * path){
   FILE *file = fopen(path, "rb");
   if(!file) {
@@ -25,7 +25,7 @@ ClassFile readFile(char * path){
 
 
 }
-
+*/
 
 u1 readU1(FILE * fp){
   u1 target;

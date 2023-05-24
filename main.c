@@ -1,155 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include "leitor.h"
 
-typedef uint8_t u1;
-typedef uint16_t u2;
-typedef uint32_t u4;
-
-typedef struct {
-  u1 tag;
-  union {
-    struct {
-      u2 name_index;
-    } CONSTANT_Class;
-    struct {
-      u2 class_index;
-      u2 name_and_type_index;
-    } CONSTANT_Fieldref;
-    struct {
-      u2 class_index;
-      u2 name_and_type_index;
-    } CONSTANT_Methodref;
-    struct {
-      u2 class_index;
-      u2 name_and_type_index;
-    } CONSTANT_InterfaceMethodref;
-    struct {
-      u2 string_index;
-    } CONSTANT_String;
-    struct {
-      u4 bytes;
-    } CONSTANT_Integer;
-    struct {
-      u4 bytes;
-    } CONSTANT_Float;
-    struct {
-      u4 high_bytes;
-      u4 low_bytes;
-    } CONSTANT_Long;
-    struct {
-      u4 high_bytes;
-      u4 low_bytes;
-    } CONSTANT_Double;
-    struct {
-      u2 name_index;
-      u2 descriptor_index;
-    } CONSTANT_NameAndType;
-    struct {
-      u2 length;
-      u1 * bytes;
-    } CONSTANT_Utf8;
-    struct {
-      u1 reference_kind;
-      u2 reference_index;
-    } CONSTANT_MethodHandle;
-    struct {
-      u2 descriptor_index;
-    } CONSTANT_MethodType;
-    struct {
-      u2 bootstrap_method_attr_index;
-      u2 name_and_type_index;
-    } CONSTANT_InvokeDynamic;
-  };
-} cp_info;
-
-typedef struct {
-  u2 attribute_name_index;
-  u4 attribute_length;
-  u1 * info;
-} attribute_info;
-
-typedef struct {
- u2 access_flags;
- u2 name_index;
- u2 descriptor_index;
- u2 attributes_count;
- attribute_info * attributes;
-} field_info;
-
-typedef struct {
-  u2 access_flags;
-  u2 name_index;
-  u2 descriptor_index;
-  u2 attributes_count;
-  attribute_info * attributes;
-} method_info;
-
-#define MAXU1 255
-#define MAXU2 65535
-#define MAXU4 2147483647
-#define NAME_INDEX 1
-#define NAME_AND_TYPE 2
-#define STRING_INDEX 3
-#define CLASS_INDEX 4
-#define NAME_AND_TYPE_INFO_NAME_INDEX 5
-#define NAME_AND_TYPE_INFO_DESCRIPTOR_INDEX 6
-#define FIELD_INDEX 7
-
-u1 readU1(FILE * fp){
-  u1 target;
-  if(fread(&target, sizeof(u1), 1, fp) != 1){
-    return -1;
-  }
-  return target;
-}
-
-u2 readU2(FILE * fp){
-  u2 target;
-  u1 lowByte, highByte;
-  highByte = readU1(fp);
-  lowByte = readU1(fp);
-
-  if(highByte == MAXU1 | lowByte == MAXU1)
-    return MAXU2;
-
-  target = ((highByte)<<8) | ((lowByte));
-}
-
-u4 readU4(FILE * fp) {
-  u4 target;
-  u1 b0, b1, b2, b3;
-  b3 = readU1(fp);
-  b2 = readU1(fp);
-  b1 = readU1(fp);
-  b0 = readU1(fp);
-  //Tratar erros, todo
-  if(b0 == MAXU1 | b1 == MAXU1 | b2 == MAXU1 | b3 == MAXU1) return MAXU4;
-
-  target = (b3<<24) | (b2<<16) | (b1<<8) | (b0);
-  return target;
-}
-
-typedef struct {
-  u4 magic_number;
-  u2 minor_version;
-  u2 major_version;
-  u2 constant_pool_count;
-  cp_info * constant_pool;
-  u2 access_flags;
-  u2 this_class;
-  u2 super_class;
-  u2 interfaces_count;
-  u2 * interfaces;
-  u2 fields_count;
-  field_info * fields;
-  u2 methods_count;
-  method_info * methods;
-  u2 attributes_count;
-  attribute_info * attributes;
-} classFile;
-
-
+// Futuramente essa será a função readClassFile
 int main(int argc, char *argv[]){
   FILE *fp = fopen("Child.class", "rb");
   if(!fp) {
@@ -157,7 +11,7 @@ int main(int argc, char *argv[]){
     return 1;
   }
 
-  classFile classFile;
+  ClassFile classFile;
 
   classFile.magic_number = readU4(fp);
   if(classFile.magic_number != 0xCAFEBABE) {

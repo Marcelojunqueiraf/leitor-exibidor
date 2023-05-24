@@ -1,8 +1,10 @@
 TARGET=a.out
 
 all:
-	gcc -std=c99 -Wall main.c -o $(TARGET) -lm
+	gcc -std=c99 -Wall leitor.c main.c -o $(TARGET) -lm
+
+run:
+	./$(TARGET)
 
 clean:
 	rm a.out
-	rm *.gch
