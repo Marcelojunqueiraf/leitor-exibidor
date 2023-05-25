@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "../common/int-types.h"
 #include "../common/erros.h"
 

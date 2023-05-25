@@ -1,6 +1,11 @@
 #include "class-file.h"
 
 int readClassFile(char path[], ClassFile *classFileInput){
+  if (!strstr(path, ".class")){
+    fprintf(stderr, "Arquivo não é .class\n");
+    return INVALID_ARGUMENTS;
+  }
+
   FILE *fp = fopen(path, "rb");
   if(!fp) {
     fprintf(stderr, "Não foi possível abrir o arquivo\n");
