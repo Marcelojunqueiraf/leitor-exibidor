@@ -1,8 +1,8 @@
 Compila os códigos  
 `make all`
 
-Compila e executa a main  
-`make run`
-
 Deleta os arquivos objeto e o executavel  
 `make clean`
+
+Lê o Class File do caminho passado como argumento
+`./main.out class-files/Child.class`

@@ -2,6 +2,7 @@
   "C_Cpp.errorSquiggles": "enabled",
   "files.associations": {
     "*.mjml": "mjml",
-    "referencias.h": "c"
+    "referencias.h": "c",
+    "leitores.h": "c"
   }
 }
