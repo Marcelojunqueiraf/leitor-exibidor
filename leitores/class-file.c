@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "leitores.h"
+#define WRONG_PATH 1
+#define WRONG_MAGIC_NUMBER 2
 
 int readClassFile(char path[], ClassFile *classFileInput){
   FILE *fp = fopen(path, "rb");
   if(!fp) {
     fprintf(stderr, "Não foi possível abrir o arquivo\n");
-    return NULL;
+    return WRONG_PATH;
   }
 
   ClassFile classFile = *classFileInput;
@@ -14,7 +16,7 @@ int readClassFile(char path[], ClassFile *classFileInput){
   if(classFile.magic_number != 0xCAFEBABE) {
     fprintf(stderr, "Magic number não bateu: %x", classFile.magic_number);
     fclose(fp);
-    return NULL;
+    return WRONG_MAGIC_NUMBER;
   }
 
   classFile.minor_version = readU2(fp);
