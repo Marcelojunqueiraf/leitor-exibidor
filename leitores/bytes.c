@@ -18,6 +18,7 @@ u2 readU2(FILE * fp){
     return MAXU2;
 
   target = ((highByte)<<8) | ((lowByte));
+  return target;
 }
 
 u4 readU4(FILE * fp) {
