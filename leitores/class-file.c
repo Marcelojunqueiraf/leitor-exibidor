@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include "leitores.h"
-#define WRONG_PATH 1
-#define WRONG_MAGIC_NUMBER 2
+#include "class-file.h"
 
 int readClassFile(char path[], ClassFile *classFileInput){
   FILE *fp = fopen(path, "rb");

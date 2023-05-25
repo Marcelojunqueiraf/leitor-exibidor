@@ -1,0 +1,3 @@
+#define WRONG_PATH 1
+#define WRONG_MAGIC_NUMBER 2
+#define INVALID_ARGUMENTS 3

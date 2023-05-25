@@ -3,6 +3,7 @@
   "files.associations": {
     "*.mjml": "mjml",
     "referencias.h": "c",
-    "leitores.h": "c"
+    "leitores.h": "c",
+    "erros.h": "c"
   }
 }
