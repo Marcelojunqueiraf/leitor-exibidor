@@ -1,6 +1,6 @@
 #include "class-file.h"
 
-int readClassFile(char path[], ClassFile *classFileInput){
+int readClassFile(char path[], ClassFile *classFileAdress){
   if (!strstr(path, ".class")){
     fprintf(stderr, "Arquivo não é .class\n");
     return INVALID_ARGUMENTS;
@@ -12,7 +12,7 @@ int readClassFile(char path[], ClassFile *classFileInput){
     return WRONG_PATH;
   }
 
-  ClassFile classFile = *classFileInput;
+  ClassFile classFile = *classFileAdress;
 
   classFile.magic_number = readU4(fp);
   if(classFile.magic_number != 0xCAFEBABE) {

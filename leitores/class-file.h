@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "bytes.h"
 #include "../common/int-types.h"
 #include "../common/erros.h"
 
@@ -111,3 +112,5 @@ typedef struct {
   u2 attributes_count;
   attribute_info * attributes;
 } ClassFile;
+
+int readClassFile(char path[], ClassFile *classFileAdress);

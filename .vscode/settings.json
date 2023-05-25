@@ -4,6 +4,7 @@
     "*.mjml": "mjml",
     "referencias.h": "c",
     "leitores.h": "c",
-    "erros.h": "c"
+    "erros.h": "c",
+    "class-file.h": "c"
   }
 }

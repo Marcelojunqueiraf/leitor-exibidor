@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
 #include "common/erros.h"
 #include "leitores/class-file.h"
 
@@ -19,4 +16,3 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
-
