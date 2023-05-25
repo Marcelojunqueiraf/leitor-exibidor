@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
   classFile.magic_number = readU4(fp);
   if(classFile.magic_number != 0xCAFEBABE) {
     fprintf(stderr, "Magic number não bateu: %x", classFile.magic_number);
+    fclose(fp);
     return 1;
   }
 
