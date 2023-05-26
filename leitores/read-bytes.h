@@ -1,5 +1,5 @@
-#include "../common/int-types.h"
 #include <stdio.h>
+#include "../common/int-types.h"
 
 #define MAXU1 255
 #define MAXU2 65535

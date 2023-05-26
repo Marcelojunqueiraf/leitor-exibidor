@@ -1,6 +1,6 @@
 TARGET = main.out
 FLAGS = -Wall -std=c99 -lm
-LEITORES = leitores/bytes.c leitores/class-file.c
+LEITORES = leitores/read-bytes.c leitores/read-class-file.c
 
 all:
 	gcc $(FLAGS) $(LEITORES) main.c -o $(TARGET)

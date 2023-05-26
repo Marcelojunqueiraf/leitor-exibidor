@@ -1,4 +1,4 @@
-#include "class-file.h"
+#include "read-class-file.h"
 
 int readClassFile(char path[], ClassFile *classFileAdress){
   if (!strstr(path, ".class")){
