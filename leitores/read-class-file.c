@@ -141,6 +141,7 @@ int readClassFile(char path[], ClassFile* classFile){
   printf("interface_count: %d\n", classFile->interfaces_count);
 
   classFile->interfaces = malloc((classFile->interfaces_count) * sizeof (u2));
+
   for(u2 interface_index = 0; interface_index < classFile->interfaces_count; interface_index++){
     u2 * interface = &(classFile->interfaces[interface_index]);
     *interface = readU2(fp);
@@ -169,7 +170,7 @@ int readClassFile(char path[], ClassFile* classFile){
     
     field->attributes = malloc((field->attributes_count) * sizeof (attribute_info));
 
-    for(u2 attribute_index; attribute_index < field->attributes_count; attribute_index++) {
+    for(u2 attribute_index = 0; attribute_index < field->attributes_count; attribute_index++) {
       attribute_info * attribute = &(field->attributes[attribute_index]);
       attribute->attribute_name_index = readU2(fp);
       printf("name_index: %d\n", attribute->attribute_name_index);
@@ -179,7 +180,7 @@ int readClassFile(char path[], ClassFile* classFile){
       
       attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
 
-      for(u4 info_index; info_index < attribute->attribute_length; info_index++){
+      for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
         u1 * info = &(attribute->info[info_index]);
         *info = readU1(fp);
         printf("%d\n", *info);
@@ -245,7 +246,7 @@ int readClassFile(char path[], ClassFile* classFile){
     
     attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
 
-    for(u4 info_index; info_index< attribute->attribute_length; info_index++){
+    for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
       u1 * info = &(attribute->info[info_index]);
       *info = readU1(fp);
       printf("%d\n", *info);
