@@ -189,7 +189,7 @@ int readClassFile(char path[], ClassFile* classFile){
   classFile->methods = malloc((classFile->methods_count) * sizeof (method_info));;
   for(int i = 0; i < classFile->methods_count; i++){
     method_info* method = &(classFile->methods[i]);
-    
+
     printf("method\n");
     method->access_flags = readU2(fp);
     printf("access_flags: %x \n", method->access_flags  );
@@ -218,7 +218,8 @@ int readClassFile(char path[], ClassFile* classFile){
       
       attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
 
-      for(u1 * info = attribute->info; info<attribute->info+attribute->attribute_length; info++){
+      for(int info_index = 0; info_index < attribute->attribute_length; info_index++){
+        u1* info = &(attribute->info[info_index]);
         *info = readU1(fp);
         printf("%02x ", *info);
       }
