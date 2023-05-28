@@ -141,10 +141,10 @@ int readClassFile(char path[], ClassFile* classFile){
   printf("interface_count: %d\n", classFile->interfaces_count);
 
   classFile->interfaces = malloc((classFile->interfaces_count) * sizeof (u2));
-  u2 *finalInterface = classFile->interfaces + classFile->interfaces_count;
-  for(u2 * currentInterface = classFile->interfaces; currentInterface < finalInterface; currentInterface ++){
-    *currentInterface = readU2(fp);
-    printf("%d \n", *currentInterface);
+  for(u2 interface_index = 0; interface_index < classFile->interfaces_count; interface_index++){
+    u2 * interface = &(classFile->interfaces[interface_index]);
+    *interface = readU2(fp);
+    printf("%d \n", *interface);
   }
 
   classFile->fields_count = readU2(fp);
