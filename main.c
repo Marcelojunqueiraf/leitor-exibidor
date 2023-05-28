@@ -10,6 +10,8 @@ int main(int argc, char *argv[]) {
   }
 
   readClassFile(argv[1], &classFile);
+
+  printf("\n%d\n", classFile.attributes[0].attribute_length);
   
   // Seria bom separar a leitura da impressão, mas dá muito trabalho
   // printClassFile(&classFile); 

@@ -205,10 +205,8 @@ int readClassFile(char path[], ClassFile* classFile){
     
     method->attributes = malloc((method->attributes_count) * sizeof (attribute_info));
 
-
-    attribute_info * attributes = method->attributes;
     for(int attribute_index = 0;  attribute_index < method->attributes_count; attribute_index++) {
-      attribute_info * attribute = &attributes[attribute_index];
+      attribute_info * attribute = &(method->attributes[attribute_index]);
 
       attribute->attribute_name_index = readU2(fp);
       printf("name_index: %d\n", attribute->attribute_name_index);
@@ -232,7 +230,8 @@ int readClassFile(char path[], ClassFile* classFile){
 
 
   classFile->attributes = malloc((classFile->attributes_count) * sizeof (attribute_info));
-  for(attribute_info * attribute=classFile->attributes; attribute<(classFile->attributes+classFile->attributes_count); attribute ++){
+  for(u2 attribute_index = 0; attribute_index < classFile->attributes_count; attribute_index++){
+    attribute_info * attribute = &(classFile->attributes[attribute_index]);
 
     printf("attribute\n");
     attribute->attribute_name_index = readU2(fp);
@@ -243,7 +242,8 @@ int readClassFile(char path[], ClassFile* classFile){
     
     attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
 
-    for(u1 * info = attribute->info; info<(attribute->info+attribute->attribute_length); info++){
+    for(u4 info_index; info_index< attribute->attribute_length; info_index++){
+      u1 * info = &(attribute->info[info_index]);
       *info = readU1(fp);
       printf("%d\n", *info);
     }
