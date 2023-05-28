@@ -16,4 +16,4 @@
 #define FIELD_INDEX 7
 */
 
-int readClassFile(char path[], ClassFile *classFileAdress);
+int readClassFile(char path[], ClassFile *classFile);
