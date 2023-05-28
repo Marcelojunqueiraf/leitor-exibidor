@@ -28,100 +28,100 @@ int readClassFile(char path[], ClassFile* classFile){
   printf("pool count: %d\n", classFile->constant_pool_count);
 
   classFile->constant_pool = malloc((classFile->constant_pool_count+1) * sizeof (cp_info));
-  int i = 1;
-  cp_info *finalCPAdress = classFile->constant_pool+classFile->constant_pool_count-1;
-  for(cp_info * currentCPAdress = classFile->constant_pool; currentCPAdress < finalCPAdress; currentCPAdress++){
-    currentCPAdress->tag = readU1(fp);
-    printf("index: %d, tag: %d, ", i, currentCPAdress->tag);
-    i++;
-    switch (currentCPAdress->tag){
+  for(u2 cp_index = 1; cp_index < classFile->constant_pool_count; cp_index++){
+    cp_info * constant = &(classFile->constant_pool[cp_index]);
+
+    constant->tag = readU1(fp);
+    printf("index: %d, tag: %d, ", cp_index, constant->tag);
+  
+    switch (constant->tag){
       case 7: // class
         printf("Constant class\n");
-        currentCPAdress->CONSTANT_Class.name_index = readU2(fp);
-          printf(" name_index: %d\n", currentCPAdress->CONSTANT_Class.name_index);
+        constant->CONSTANT_Class.name_index = readU2(fp);
+          printf(" name_index: %d\n", constant->CONSTANT_Class.name_index);
         break;
       case 9: // fieldRef
         printf("FieldRef\n");
-        currentCPAdress->CONSTANT_Fieldref.class_index = readU2(fp);
-        currentCPAdress->CONSTANT_Fieldref.name_and_type_index = readU2(fp);
-        printf("-  class Index: %d\n", currentCPAdress->CONSTANT_Fieldref.class_index);
-        printf("- name_and_type_index: %d\n", currentCPAdress->CONSTANT_Fieldref.name_and_type_index);
+        constant->CONSTANT_Fieldref.class_index = readU2(fp);
+        constant->CONSTANT_Fieldref.name_and_type_index = readU2(fp);
+        printf("-  class Index: %d\n", constant->CONSTANT_Fieldref.class_index);
+        printf("- name_and_type_index: %d\n", constant->CONSTANT_Fieldref.name_and_type_index);
         break;
       case 10: // MethodRef
         printf("MethodRef\n");
-        currentCPAdress->CONSTANT_Methodref.class_index = readU2(fp);
-        currentCPAdress->CONSTANT_Methodref.name_and_type_index = readU2(fp);
-        printf("- class_index: %d\n", currentCPAdress->CONSTANT_Methodref.class_index);
-        printf("- name_and_index_type: %d\n", currentCPAdress->CONSTANT_Methodref.name_and_type_index);
+        constant->CONSTANT_Methodref.class_index = readU2(fp);
+        constant->CONSTANT_Methodref.name_and_type_index = readU2(fp);
+        printf("- class_index: %d\n", constant->CONSTANT_Methodref.class_index);
+        printf("- name_and_index_type: %d\n", constant->CONSTANT_Methodref.name_and_type_index);
         break;
       case 11: // InterfaceMethod
         printf("InterfaceMethod\n");
-        currentCPAdress->CONSTANT_InterfaceMethodref.class_index = readU2(fp);
-        currentCPAdress->CONSTANT_InterfaceMethodref.name_and_type_index = readU2(fp);
-        printf("- class_index: %d\n", currentCPAdress->CONSTANT_InterfaceMethodref.class_index);
-        printf("- name_and_index_type: %d\n", currentCPAdress->CONSTANT_InterfaceMethodref.name_and_type_index);
+        constant->CONSTANT_InterfaceMethodref.class_index = readU2(fp);
+        constant->CONSTANT_InterfaceMethodref.name_and_type_index = readU2(fp);
+        printf("- class_index: %d\n", constant->CONSTANT_InterfaceMethodref.class_index);
+        printf("- name_and_index_type: %d\n", constant->CONSTANT_InterfaceMethodref.name_and_type_index);
         break;
       case 8: // String
         printf("String\n");
-        currentCPAdress->CONSTANT_String.string_index = readU2(fp);
-        printf("- string_index: %d\n", currentCPAdress->CONSTANT_String.string_index);
+        constant->CONSTANT_String.string_index = readU2(fp);
+        printf("- string_index: %d\n", constant->CONSTANT_String.string_index);
         break;
       case 3: // Integer
-        currentCPAdress->CONSTANT_Integer.bytes = readU4(fp);
-        printf("Integer: %d\n", currentCPAdress->CONSTANT_Integer.bytes);
+        constant->CONSTANT_Integer.bytes = readU4(fp);
+        printf("Integer: %d\n", constant->CONSTANT_Integer.bytes);
         break;
       case 4: // Float
-        currentCPAdress->CONSTANT_Float.bytes = readU4(fp);
-        printf("Float: %f\n", (float) currentCPAdress->CONSTANT_Float.bytes);
+        constant->CONSTANT_Float.bytes = readU4(fp);
+        printf("Float: %f\n", (float) constant->CONSTANT_Float.bytes);
         break;
       case 5: // Long
         printf("Long\n");
-        currentCPAdress->CONSTANT_Long.high_bytes = readU4(fp);
-        currentCPAdress->CONSTANT_Long.low_bytes = readU4(fp);
-        printf("- high-bytes: %d\n", currentCPAdress->CONSTANT_Long.high_bytes);
-        printf("- low-bytes: %d\n", currentCPAdress->CONSTANT_Long.low_bytes);
+        constant->CONSTANT_Long.high_bytes = readU4(fp);
+        constant->CONSTANT_Long.low_bytes = readU4(fp);
+        printf("- high-bytes: %d\n", constant->CONSTANT_Long.high_bytes);
+        printf("- low-bytes: %d\n", constant->CONSTANT_Long.low_bytes);
         break;
       case 6: // Double
         printf("Double\n");
-        currentCPAdress->CONSTANT_Double.high_bytes = readU4(fp);
-        currentCPAdress->CONSTANT_Double.low_bytes = readU4(fp);
-        printf("- high-bytes: %d\n", currentCPAdress->CONSTANT_Double.high_bytes);
-        printf("- low-bytes: %d\n", currentCPAdress->CONSTANT_Double.low_bytes);
+        constant->CONSTANT_Double.high_bytes = readU4(fp);
+        constant->CONSTANT_Double.low_bytes = readU4(fp);
+        printf("- high-bytes: %d\n", constant->CONSTANT_Double.high_bytes);
+        printf("- low-bytes: %d\n", constant->CONSTANT_Double.low_bytes);
         break;
       case 12: // NameAndType
         printf("Name and Type\n");
-        currentCPAdress->CONSTANT_NameAndType.name_index = readU2(fp);
-        currentCPAdress->CONSTANT_NameAndType.descriptor_index = readU2(fp);
-        printf("- name_index: %d\n", currentCPAdress->CONSTANT_NameAndType.name_index);
-        printf("- descriptor_index: %d\n", currentCPAdress->CONSTANT_NameAndType.descriptor_index);
+        constant->CONSTANT_NameAndType.name_index = readU2(fp);
+        constant->CONSTANT_NameAndType.descriptor_index = readU2(fp);
+        printf("- name_index: %d\n", constant->CONSTANT_NameAndType.name_index);
+        printf("- descriptor_index: %d\n", constant->CONSTANT_NameAndType.descriptor_index);
         break;
       case 1: // utf8
         printf("utf8\n\"");
-        currentCPAdress->CONSTANT_Utf8.length = readU2(fp);
-        currentCPAdress->CONSTANT_Utf8.bytes = (u1 * ) malloc(sizeof (u1) * currentCPAdress->CONSTANT_Utf8.length);
-        for(int i=0; i<currentCPAdress->CONSTANT_Utf8.length; i++){
-          currentCPAdress->CONSTANT_Utf8.bytes[i] = readU1(fp);
-          printf("%c", currentCPAdress->CONSTANT_Utf8.bytes[i]);
+        constant->CONSTANT_Utf8.length = readU2(fp);
+        constant->CONSTANT_Utf8.bytes = (u1 * ) malloc(sizeof (u1) * constant->CONSTANT_Utf8.length);
+        for(int i=0; i<constant->CONSTANT_Utf8.length; i++){
+          constant->CONSTANT_Utf8.bytes[i] = readU1(fp);
+          printf("%c", constant->CONSTANT_Utf8.bytes[i]);
         }
         printf("\"\n");
         break;
       case 15: // MethodHandle
         printf("Method Hanlde\n");
-        currentCPAdress->CONSTANT_MethodHandle.reference_kind = readU1(fp);
-        currentCPAdress->CONSTANT_MethodHandle.reference_index = readU2(fp);
-        printf("- reference_kind: %d\n", currentCPAdress->CONSTANT_NameAndType.name_index);
-        printf("- reference_index: %d\n", currentCPAdress->CONSTANT_NameAndType.descriptor_index);
+        constant->CONSTANT_MethodHandle.reference_kind = readU1(fp);
+        constant->CONSTANT_MethodHandle.reference_index = readU2(fp);
+        printf("- reference_kind: %d\n", constant->CONSTANT_NameAndType.name_index);
+        printf("- reference_index: %d\n", constant->CONSTANT_NameAndType.descriptor_index);
         break;
       case 16: // MethodType
         printf("Method type\n");
-        currentCPAdress->CONSTANT_MethodType.descriptor_index = readU2(fp);
+        constant->CONSTANT_MethodType.descriptor_index = readU2(fp);
         break;
       case 18: // InvokeDynamic
         printf("Invoke Dynamic\n");
-        currentCPAdress->CONSTANT_InvokeDynamic.bootstrap_method_attr_index = readU2(fp);
-        currentCPAdress->CONSTANT_InvokeDynamic.name_and_type_index = readU2(fp);
-        printf("- bootstrap_method_attr_index: %d\n", currentCPAdress->CONSTANT_InvokeDynamic.bootstrap_method_attr_index);
-        printf("- name_and_type_index: %d\n", currentCPAdress->CONSTANT_InvokeDynamic.name_and_type_index);
+        constant->CONSTANT_InvokeDynamic.bootstrap_method_attr_index = readU2(fp);
+        constant->CONSTANT_InvokeDynamic.name_and_type_index = readU2(fp);
+        printf("- bootstrap_method_attr_index: %d\n", constant->CONSTANT_InvokeDynamic.bootstrap_method_attr_index);
+        printf("- name_and_type_index: %d\n", constant->CONSTANT_InvokeDynamic.name_and_type_index);
         break;
       default:
         printf("\n");

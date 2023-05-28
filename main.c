@@ -10,8 +10,6 @@ int main(int argc, char *argv[]) {
   }
 
   readClassFile(argv[1], &classFile);
-
-  printf("\n%d\n", classFile.fields[0].descriptor_index);
   
   // Seria bom separar a leitura da impressão, mas dá muito trabalho
   // printClassFile(&classFile); 
