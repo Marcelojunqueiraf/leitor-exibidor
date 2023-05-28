@@ -188,34 +188,37 @@ int readClassFile(char path[], ClassFile* classFile){
   printf("methods_count: %d\n", classFile->methods_count);
   classFile->methods = malloc((classFile->methods_count) * sizeof (method_info));;
   for(int i = 0; i < classFile->methods_count; i++){
+    method_info* method = &(classFile->methods[i]);
+    
     printf("method\n");
-    classFile->methods[i].access_flags = readU2(fp);
-    printf("access_flags: %x \n", classFile->methods[i].access_flags  );
+    method->access_flags = readU2(fp);
+    printf("access_flags: %x \n", method->access_flags  );
     
-    classFile->methods[i].name_index = readU2(fp);
-    printf("name index: %d \n", classFile->methods[i].name_index);
+    method->name_index = readU2(fp);
+    printf("name index: %d \n", method->name_index);
     
-    classFile->methods[i].descriptor_index = readU2(fp);
-    printf("descriptor_index: %d \n", classFile->methods[i].descriptor_index);
+    method->descriptor_index = readU2(fp);
+    printf("descriptor_index: %d \n", method->descriptor_index);
     // dá pra reutilizar o código de atributos
-    classFile->methods[i].attributes_count = readU2(fp);
-    printf("attributes_count: %d \n", classFile->methods[i].attributes_count);
+    method->attributes_count = readU2(fp);
+    printf("attributes_count: %d \n", method->attributes_count);
     
-    classFile->methods[i].attributes = malloc((classFile->methods[i].attributes_count) * sizeof (attribute_info));
+    method->attributes = malloc((method->attributes_count) * sizeof (attribute_info));
 
 
-    attribute_info * attributes = classFile->methods[i].attributes;
-    for(int attribute_index = 0;  attribute_index < classFile->methods[i].attributes_count; attribute_index++) {
+    attribute_info * attributes = method->attributes;
+    for(int attribute_index = 0;  attribute_index < method->attributes_count; attribute_index++) {
+      attribute_info * attribute = &attributes[attribute_index];
 
-      attributes[attribute_index].attribute_name_index = readU2(fp);
-      printf("name_index: %d\n", attributes[attribute_index].attribute_name_index);
+      attribute->attribute_name_index = readU2(fp);
+      printf("name_index: %d\n", attribute->attribute_name_index);
 
-      attributes[attribute_index].attribute_length = readU4(fp);
-      printf("atribute length: %d\n", attributes[attribute_index].attribute_length);
+      attribute->attribute_length = readU4(fp);
+      printf("atribute length: %d\n", attribute->attribute_length);
       
-      attributes[attribute_index].info = malloc((attributes[attribute_index].attribute_length) * sizeof (u1));
+      attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
 
-      for(u1 * info = attributes[attribute_index].info; info<attributes[attribute_index].info+attributes[attribute_index].attribute_length; info++){
+      for(u1 * info = attribute->info; info<attribute->info+attribute->attribute_length; info++){
         *info = readU1(fp);
         printf("%02x ", *info);
       }
