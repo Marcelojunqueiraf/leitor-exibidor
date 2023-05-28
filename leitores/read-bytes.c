@@ -14,7 +14,7 @@ u2 readU2(FILE * fp){
   highByte = readU1(fp);
   lowByte = readU1(fp);
 
-  if(highByte == MAXU1 | lowByte == MAXU1)
+  if((highByte == MAXU1) | (lowByte == MAXU1))
     return MAXU2;
 
   target = ((highByte)<<8) | ((lowByte));
@@ -29,7 +29,7 @@ u4 readU4(FILE * fp) {
   b1 = readU1(fp);
   b0 = readU1(fp);
   //Tratar erros, todo
-  if(b0 == MAXU1 | b1 == MAXU1 | b2 == MAXU1 | b3 == MAXU1) return MAXU4;
+  if((b0 == MAXU1) | (b1 == MAXU1) | (b2 == MAXU1) | (b3 == MAXU1)) return MAXU4;
 
   target = (b3<<24) | (b2<<16) | (b1<<8) | (b0);
   return target;

@@ -188,26 +188,25 @@ int readClassFile(char path[], ClassFile *classFileAdress){
 
   classFile.methods_count = readU2(fp);
   printf("methods_count: %d\n", classFile.methods_count);
-
-  classFile.methods = malloc((classFile.methods_count) * sizeof (method_info));
-  for(method_info * method=classFile.methods; method<(classFile.methods+classFile.methods_count+1); method ++){
+  classFile.methods = malloc((classFile.methods_count) * sizeof (method_info));;
+  for(int i = 0; i < classFile.methods_count; i++){
     printf("method\n");
-    method->access_flags = readU2(fp);
-    printf("access_flags: %x \n", method->access_flags  );
+    classFile.methods[i].access_flags = readU2(fp);
+    printf("access_flags: %x \n", classFile.methods[i].access_flags  );
     
-    method->name_index = readU2(fp);
-    printf("name index: %d \n", method->name_index);
+    classFile.methods[i].name_index = readU2(fp);
+    printf("name index: %d \n", classFile.methods[i].name_index);
     
-    method->descriptor_index = readU2(fp);
-    printf("descriptor_index: %d \n", method->descriptor_index);
+    classFile.methods[i].descriptor_index = readU2(fp);
+    printf("descriptor_index: %d \n", classFile.methods[i].descriptor_index);
     // dá pra reutilizar o código de atributos
-    method->attributes_count = readU2(fp);
-    printf("attributes_count: %d \n", method->attributes_count);
+    classFile.methods[i].attributes_count = readU2(fp);
+    printf("attributes_count: %d \n", classFile.methods[i].attributes_count);
     
-    method->attributes = malloc((method->attributes_count) * sizeof (attribute_info));
+    classFile.methods[i].attributes = malloc((classFile.methods[i].attributes_count) * sizeof (attribute_info));
 
 
-    for(attribute_info * attribute = method->attributes; attribute<(method->attributes+method->attributes_count); method++) {
+    for(attribute_info * attribute = classFile.methods[i].attributes; attribute<(classFile.methods[i].attributes+classFile.methods[i].attributes_count); attribute++) {
       attribute->attribute_name_index = readU2(fp);
       printf("name_index: %d\n", attribute->attribute_name_index);
 
@@ -218,7 +217,7 @@ int readClassFile(char path[], ClassFile *classFileAdress){
 
       for(u1 * info = attribute->info; info<attribute->info+attribute->attribute_length; info++){
         *info = readU1(fp);
-        printf("%d ", *info);
+        printf("%02x ", *info);
       }
       printf("\n---\n");
     }

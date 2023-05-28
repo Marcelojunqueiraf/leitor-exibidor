@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "read-bytes.h"
 #include "../common/class-file.h"
 #include "../common/int-types.h"
 #include "../common/erros.h"
