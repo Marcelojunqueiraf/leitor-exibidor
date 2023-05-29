@@ -1,4 +1,9 @@
 #include "read-class-file.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "read-bytes.h"
+#include "../common/erros.h"
 
 int readClassFile(char path[], ClassFile* classFile){
   if (!strstr(path, ".class")){
