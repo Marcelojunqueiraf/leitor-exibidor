@@ -1,9 +1,10 @@
 #include "read-class-file.h"
+#include "read-bytes.h"
+#include "../common/int-types.h"
+#include "../common/erros.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "read-bytes.h"
-#include "../common/erros.h"
 
 int readClassFile(char path[], ClassFile* classFile){
   if (!strstr(path, ".class")){

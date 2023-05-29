@@ -1,4 +1,5 @@
 #include "common/erros.h"
+#include <stdio.h>
 #include "leitores/read-class-file.h"
 
 int main(int argc, char *argv[]) {
