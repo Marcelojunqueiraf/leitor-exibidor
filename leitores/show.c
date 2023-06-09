@@ -24,8 +24,15 @@ int showInformacoesGerais(ClassFile classFile) {
     printf("Versão do java: %d.%d\n", classFile.major_version, classFile.minor_version);
     printf("Pool count: %d\n", classFile.constant_pool_count);
     printf("Access flags: 0x%X\n", classFile.access_flags);
-    printf("This class: %d\n", classFile.this_class);
-    printf("Super class: %d\n", classFile.super_class);
+
+    printf("This class: %d ", classFile.this_class);
+    printUtf8(classFile.constant_pool, classFile.this_class);
+    printf("\n");
+
+    printf("Super class: %d ", classFile.super_class);
+    printUtf8(classFile.constant_pool, classFile.super_class);
+    printf("\n");
+
     printf("Interfaces count: %d\n", classFile.interfaces_count);
     printf("Fields count: %d\n", classFile.fields_count);
     printf("Methods count: %d\n", classFile.methods_count);
