@@ -1,5 +1,10 @@
 #include "int-types.h"
 
+
+#ifndef	CLASS_FILE_H
+#define CLASS_FILE_H
+
+
 typedef struct {
   u1 tag;
   union {
@@ -97,3 +102,5 @@ typedef struct {
   u2 attributes_count;
   attribute_info * attributes;
 } ClassFile;
+
+#endif
