@@ -17,7 +17,7 @@ int showClassFile(ClassFile classFile) {
     return 0;
 }
 
-int showInformacoesGerais(ClassFile classFile) {
+void showInformacoesGerais(ClassFile classFile) {
     printf("----- Informações Gerais -----\n");
 
     printf("Magic number: 0x%X\n", classFile.magic_number);
@@ -30,8 +30,6 @@ int showInformacoesGerais(ClassFile classFile) {
     printf("Fields count: %d\n", classFile.fields_count);
     printf("Methods count: %d\n", classFile.methods_count);
     printf("Atributes count: %d\n", classFile.attributes_count);
-
-    return 0;
 }
 
 void showConstantPool(ClassFile classFile) {
@@ -50,8 +48,13 @@ void showInterfaces(ClassFile classFile) {
 }
 
 void showFields(ClassFile classFile) {
-  printf("\n----- Fields -----\n");
+    printf("\n----- Fields -----\n");
 
+    cp_info * begin = classFile.fields;
+    cp_info * end = classFile.fields_count + classFile.fields;
+    for (cp_info * field = begin; field < end; field++) {
+      showField(classFile.fields, field);
+    }
 }
 
 void showMethods(ClassFile classFile) {
@@ -89,7 +92,7 @@ void showConstant(cp_info * constant_pool, cp_info * constant) {
             printUtf8(constant_pool, constant->CONSTANT_Methodref.class_index);
             printf("\n");
 
-            printf("- name_and_index_type: %d ", constant->CONSTANT_Methodref.name_and_type_index);
+            printf("- name_and_type_index: %d ", constant->CONSTANT_Methodref.name_and_type_index);
             printUtf8(constant_pool, constant->CONSTANT_Methodref.name_and_type_index);
             printf("\n");
             break;
@@ -99,7 +102,7 @@ void showConstant(cp_info * constant_pool, cp_info * constant) {
             printUtf8(constant_pool, constant->CONSTANT_InterfaceMethodref.class_index);
             printf("\n");
 
-            printf("- name_and_index_type: %d ", constant->CONSTANT_InterfaceMethodref.name_and_type_index);
+            printf("- name_and_type_index: %d ", constant->CONSTANT_InterfaceMethodref.name_and_type_index);
             printUtf8(constant_pool, constant->CONSTANT_InterfaceMethodref.name_and_type_index);
             printf("\n");
             break;
@@ -222,4 +225,36 @@ void printUtf8Char(u1 _char) {
     printf("%c", _char);
     // e quando tiver 8 bits?
     // implementar representação de utf8
+}
+
+void showField(cp_info * fields, field_info * field) {
+    printf("Field\n");
+
+    printf("- access_flags: %d ", field->access_flags);
+    printAccessFlag(field->access_flags);
+    printf("\n");
+
+    printf("- name index: %d ", field->name_index);
+    printUtf8(fields, field->name_index); // FIXME: não printa nada
+    printf("\n");
+
+    printf("- descriptor_index: %d ", field->descriptor_index);
+    printUtf8(fields, field->descriptor_index); // FIXME: não printa nada
+    printf("\n");
+
+    printf("- attributes_count: %d\n", field->attributes_count);
+
+    // TODO: listar attributes
+}
+
+void printAccessFlag(u1 tag) {
+    if (tag & 0x0001) printf("PUBLIC ");
+    if (tag & 0x0002) printf("PRIVATE ");
+    if (tag & 0x0004) printf("PROTECTED ");
+    if (tag & 0x0008) printf("STATIC ");
+    if (tag & 0x0010) printf("FINAL ");
+    if (tag & 0x0040) printf("VOLATILE ");
+    if (tag & 0x0080) printf("TRANSIENT ");
+    if (tag & 0x1000) printf("SYNTHETIC ");
+    if (tag & 0x4000) printf("ENUM ");
 }
