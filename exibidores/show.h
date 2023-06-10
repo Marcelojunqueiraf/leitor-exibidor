@@ -17,6 +17,6 @@ void showConstantPool(ClassFile classFile);
 void showMethods(ClassFile classFile);
 
 
-void showField(field_info * field, cp_info * constant_pool);
+void showField(field_info * field, cp_info * constant_pool, u2 index);
 void showConstant(cp_info * constant_pool, cp_info * constant, u2 index);
 #endif

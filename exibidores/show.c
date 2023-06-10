@@ -45,7 +45,7 @@ void showInformacoesGerais(ClassFile classFile) {
 }
 
 void showConstantPool(ClassFile classFile) {
-    printf("\n----- Pool de Constantes-----\n");
+    printf("\n----- Pool de Constantes -----\n");
 
     cp_info * begin = classFile.constant_pool +1;
     cp_info * end = classFile.constant_pool_count + classFile.constant_pool;
@@ -65,8 +65,9 @@ void showFields(ClassFile classFile) {
 
     field_info * begin = classFile.fields;
     field_info * end = classFile.fields_count + classFile.fields;
+    int i = 0;
     for (field_info * field = begin; field < end; field++) {
-      showField(field, classFile.constant_pool);
+      showField(field, classFile.constant_pool, i++);
     }
 }
 
@@ -185,8 +186,8 @@ void showConstant(cp_info * constant_pool, cp_info * constant, u2 index) {
     }
 }
 
-void showField(field_info * field, cp_info * constant_pool) {
-    printf("Field\n\n");
+void showField(field_info * field, cp_info * constant_pool, u2 index) {
+    printf("\n----- Field [%d] -----\n", index);
 
     printf("- access_flags: %d %s\n", field->access_flags, getAccessFlag(field->access_flags));
 
