@@ -103,4 +103,25 @@ typedef struct {
   attribute_info * attributes;
 } ClassFile;
 
+//attributes
+typedef struct{
+	u2 start_pc;
+    u2 end_pc;
+    u2 handler_pc;
+    u2 catch_type;
+} exception_table;
+
+typedef struct  {
+  u2 max_stack;
+  u2 max_locals;
+  u4 code_length;
+  u1 * code;
+  u2 exception_table_length;
+  exception_table * exception_table; // Alocar com exception_table_length
+  u2 attributes_count;
+	attribute_info * attributes;
+} code_attribute;
+
+
+
 #endif

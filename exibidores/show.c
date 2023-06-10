@@ -72,8 +72,32 @@ void showFields(ClassFile classFile) {
 }
 
 void showMethods(ClassFile classFile) {
-  printf("\n----- Métodos -----\n");
+    printf("\n----- Métodos -----\n");
+    method_info * begin = classFile.methods;
+    method_info * end = classFile.methods_count + classFile.methods;
+    int i = 0;
+    for (method_info * method = begin; method < end; method++) {
+        showMethod(method, classFile.constant_pool, i++);
+    }
+}
 
+void showMethod(method_info * method, cp_info * constant_pool, u2 index){
+    printf("\n---- Método [%d] ----\n", index);
+
+    printf("Access flags: 0x%X %s\n", method->access_flags, getAccessFlag(method->access_flags));
+
+    printf("Name index: %d ", method->name_index);
+    printf("%s", getUtf8(constant_pool, method->name_index));
+    printf("\n");
+
+    printf("Descriptor index: %d ", method->descriptor_index);
+    printf("%s", getUtf8(constant_pool, method->descriptor_index));
+    printf("\n");
+
+    printf("Attributes count: %d\n", method->attributes_count);
+    
+    printf("----- Atributos do método -----\n");
+    showAttributes(constant_pool, method->attributes, method->attributes_count);
 }
 
 void showConstant(cp_info * constant_pool, cp_info * constant, u2 index) {

@@ -2,9 +2,11 @@
 #include "read-bytes.h"
 #include "../common/int-types.h"
 #include "../common/erros.h"
+#include "../exibidores/common.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "attributes.h"
 
 int readClassFile(char path[], ClassFile* classFile){
   if (!strstr(path, ".class")){
@@ -177,23 +179,7 @@ int readClassFile(char path[], ClassFile* classFile){
     
     field->attributes = malloc((field->attributes_count) * sizeof (attribute_info));
 
-    for(u2 attribute_index = 0; attribute_index < field->attributes_count; attribute_index++) {
-      attribute_info * attribute = &(field->attributes[attribute_index]);
-      attribute->attribute_name_index = readU2(fp);
-      printf("name_index: %d\n", attribute->attribute_name_index);
-
-      attribute->attribute_length = readU4(fp);
-      printf("atribute length: %d\n", attribute->attribute_name_index);
-      
-      attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
-
-      for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
-        u1 * info = &(attribute->info[info_index]);
-        *info = readU1(fp);
-        printf("%d\n", *info);
-      }
-      printf("---\n");
-    }
+    readAttributes(classFile->constant_pool, field->attributes, fp, field->attributes_count);
   }
 
   classFile->methods_count = readU2(fp);
@@ -216,50 +202,15 @@ int readClassFile(char path[], ClassFile* classFile){
     printf("attributes_count: %d \n", method->attributes_count);
     
     method->attributes = malloc((method->attributes_count) * sizeof (attribute_info));
-
-    for(u2 attribute_index = 0;  attribute_index < method->attributes_count; attribute_index++) {
-      attribute_info * attribute = &(method->attributes[attribute_index]);
-
-      attribute->attribute_name_index = readU2(fp);
-      printf("name_index: %d\n", attribute->attribute_name_index);
-
-      attribute->attribute_length = readU4(fp);
-      printf("atribute length: %d\n", attribute->attribute_length);
-      
-      attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
-
-      for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
-        u1* info = &(attribute->info[info_index]);
-        *info = readU1(fp);
-        printf("%02x ", *info);
-      }
-      printf("\n---\n");
-    }
+    readAttributes(classFile->constant_pool, method->attributes, fp, method->attributes_count);
   }
 
   classFile->attributes_count = readU2(fp);
   printf("attributes_count: %d\n", classFile->attributes_count);
 
   classFile->attributes = malloc((classFile->attributes_count) * sizeof (attribute_info));
-  for(u2 attribute_index = 0; attribute_index < classFile->attributes_count; attribute_index++){
-    attribute_info * attribute = &(classFile->attributes[attribute_index]);
 
-    printf("attribute\n");
-    attribute->attribute_name_index = readU2(fp);
-    printf("name_index: %d\n", attribute->attribute_name_index);
-
-    attribute->attribute_length = readU4(fp);
-    printf("atribute length: %d\n", attribute->attribute_length);
-    
-    attribute->info = malloc((attribute->attribute_length) * sizeof (u1));
-
-    for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
-      u1 * info = &(attribute->info[info_index]);
-      *info = readU1(fp);
-      printf("%d\n", *info);
-    }
-  }
-  
+  readAttributes(classFile->constant_pool, classFile->attributes, fp, classFile->attributes_count);
   fclose(fp);
 
   return 0;
