@@ -28,9 +28,7 @@ void showInformacoesGerais(ClassFile classFile) {
     printf("Magic number: 0x%X\n", classFile.magic_number);
     printf("Versão do java: %d.%d\n", classFile.major_version, classFile.minor_version);
     printf("Pool count: %d\n", classFile.constant_pool_count);
-    printf("Access flags: 0x%X ", classFile.access_flags);
-    printAccessFlag(classFile.access_flags);
-    printf("\n");
+    printf("Access flags: 0x%X %s\n", classFile.access_flags, getAccessFlag(classFile.access_flags));
 
     printf("This class: %d ", classFile.this_class);
     printf("%s", getUtf8(classFile.constant_pool, classFile.this_class));
@@ -188,11 +186,9 @@ void showConstant(cp_info * constant_pool, cp_info * constant, u2 index) {
 }
 
 void showField(field_info * field, cp_info * constant_pool) {
-    printf("Field\n");
+    printf("Field\n\n");
 
-    printf("- access_flags: %d ", field->access_flags);
-    printAccessFlag(field->access_flags);
-    printf("\n");
+    printf("- access_flags: %d %s\n", field->access_flags, getAccessFlag(field->access_flags));
 
     printf("- name index: %d %s\n", field->name_index, getUtf8(constant_pool, field->name_index));
 
@@ -204,14 +200,19 @@ void showField(field_info * field, cp_info * constant_pool) {
     showAttributes(constant_pool, field->attributes, field->attributes_count);
 }
 
-void printAccessFlag(u1 tag) {
-    if (tag & 0x0001) printf("PUBLIC ");
-    if (tag & 0x0002) printf("PRIVATE ");
-    if (tag & 0x0004) printf("PROTECTED ");
-    if (tag & 0x0008) printf("STATIC ");
-    if (tag & 0x0010) printf("FINAL ");
-    if (tag & 0x0040) printf("VOLATILE ");
-    if (tag & 0x0080) printf("TRANSIENT ");
-    if (tag & 0x1000) printf("SYNTHETIC ");
-    if (tag & 0x4000) printf("ENUM ");
+char * getAccessFlag(u1 tag) {
+    char * accessFlag = malloc(sizeof(char)*100);
+    strcpy(accessFlag, "");
+
+    if (tag & 0x0001) strcat(accessFlag, "PUBLIC ");
+    if (tag & 0x0002) strcat(accessFlag, "PRIVATE ");
+    if (tag & 0x0004) strcat(accessFlag, "PROTECTED ");
+    if (tag & 0x0008) strcat(accessFlag, "STATIC ");
+    if (tag & 0x0010) strcat(accessFlag, "FINAL ");
+    if (tag & 0x0040) strcat(accessFlag, "VOLATILE ");
+    if (tag & 0x0080) strcat(accessFlag, "TRANSIENT ");
+    if (tag & 0x1000) strcat(accessFlag, "SYNTHETIC ");
+    if (tag & 0x4000) strcat(accessFlag, "ENUM ");
+
+    return accessFlag;
 }

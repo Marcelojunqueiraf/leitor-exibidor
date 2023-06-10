@@ -8,7 +8,7 @@
 
 int showClassFile(ClassFile classFile);
 char * getUtf8(cp_info * constant_pool, u2 index);
-void printAccessFlag(u1 tag);
+char * getAccessFlag(u1 tag);
 
 void showInformacoesGerais(ClassFile classFile);
 void showInterfaces(ClassFile classFile);
