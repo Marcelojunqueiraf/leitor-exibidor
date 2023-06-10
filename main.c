@@ -1,7 +1,7 @@
 #include "common/erros.h"
 #include <stdio.h>
 #include "leitores/read-class-file.h"
-#include "leitores/show.h"
+#include "exibidores/show.h"
 
 int main(int argc, char *argv[]) {
   ClassFile classFile;

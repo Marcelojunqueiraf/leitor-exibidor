@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "common.h"
 
 
 int showClassFile(ClassFile classFile) {
@@ -15,7 +16,8 @@ int showClassFile(ClassFile classFile) {
 
     showMethods(classFile);
 
-    showAttributes(classFile);
+    printf("\n----- Atributos da classe -----\n");
+    showAttributes(classFile.constant_pool, classFile.attributes, classFile.attributes_count);
 
     return 0;
 }
@@ -63,20 +65,15 @@ void showInterfaces(ClassFile classFile) {
 void showFields(ClassFile classFile) {
     printf("\n----- Fields -----\n");
 
-    cp_info * begin = classFile.fields;
-    cp_info * end = classFile.fields_count + classFile.fields;
-    for (cp_info * field = begin; field < end; field++) {
-      showField(classFile.fields, field);
+    field_info * begin = classFile.fields;
+    field_info * end = classFile.fields_count + classFile.fields;
+    for (field_info * field = begin; field < end; field++) {
+      showField(field, classFile.constant_pool);
     }
 }
 
 void showMethods(ClassFile classFile) {
   printf("\n----- Métodos -----\n");
-
-}
-
-void showAttributes(ClassFile classFile) {
-  printf("\n----- Atributos da classe -----\n");
 
 }
 
@@ -190,55 +187,7 @@ void showConstant(cp_info * constant_pool, cp_info * constant, u2 index) {
     }
 }
 
-char * getUtf8(cp_info * constant_pool, u2 index) {
-    cp_info * constant = constant_pool + index;
-    switch (constant->tag) {
-        case 1: ;// UTF8
-            char * string = (char *) malloc((constant->CONSTANT_Utf8.length+1)*sizeof(char));
-            for(int i=0; i<constant->CONSTANT_Utf8.length; i++) {
-                string[i] = constant->CONSTANT_Utf8.bytes[i];
-            }
-            string[constant->CONSTANT_Utf8.length] = '\0';
-            return string;
-        case 12: ;// NameAndType
-            char * name = getUtf8(constant_pool, constant->CONSTANT_NameAndType.name_index);
-            char * descriptor = getUtf8(constant_pool, constant->CONSTANT_NameAndType.descriptor_index);
-
-            int size = strlen(name)+strlen(descriptor)+1;
-            char * retorno = malloc(sizeof(char)*(size));
-
-            strcpy(retorno, name);
-            strcat(retorno, ":");
-            strcat(retorno, descriptor);
-            return retorno;
-        case 7: // class
-            return getUtf8(constant_pool, constant->CONSTANT_Class.name_index);
-        case 9: // fieldRef
-            return getUtf8(constant_pool, constant->CONSTANT_Fieldref.name_and_type_index);
-        case 10: // MethodRef
-            return getUtf8(constant_pool, constant->CONSTANT_Methodref.name_and_type_index);
-        case 11: // InterfaceMethod
-            return getUtf8(constant_pool, constant->CONSTANT_InterfaceMethodref.name_and_type_index);
-        case 8: // String
-            return getUtf8(constant_pool, constant->CONSTANT_String.string_index);
-        case 15: // MethodHandle
-            return getUtf8(constant_pool, constant->CONSTANT_MethodHandle.reference_index);
-        case 16: // MethodType
-            return getUtf8(constant_pool, constant->CONSTANT_MethodType.descriptor_index);
-        case 18: // InvokeDynamic
-            return getUtf8(constant_pool, constant->CONSTANT_InvokeDynamic.name_and_type_index);
-        default:
-            return "";
-    }
-}
-
-void printUtf8Char(u1 _char) {
-    printf("%c", _char);
-    // e quando tiver 8 bits?
-    // implementar representação de utf8
-}
-
-void showField(cp_info * fields, field_info * field) {
+void showField(field_info * field, cp_info * constant_pool) {
     printf("Field\n");
 
     printf("- access_flags: %d ", field->access_flags);
@@ -256,6 +205,7 @@ void showField(cp_info * fields, field_info * field) {
     printf("- attributes_count: %d\n", field->attributes_count);
 
     // TODO: listar attributes
+    showAttributes(constant_pool, field->attributes, field->attributes_count);
 }
 
 void printAccessFlag(u1 tag) {
