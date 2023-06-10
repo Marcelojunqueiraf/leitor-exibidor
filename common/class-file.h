@@ -122,6 +122,15 @@ typedef struct  {
 	attribute_info * attributes;
 } code_attribute;
 
+typedef struct {
+  u2 start_pc;
+  u2 line_number;
+} line_number_table;
+
+typedef struct {
+  u2 line_number_table_length;
+  line_number_table * line_number_table; // Alocar com line_number_table_length
+} LineNumberTable_attribute;
 
 
 #endif

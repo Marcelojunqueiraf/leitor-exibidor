@@ -31,8 +31,7 @@ void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool) 
     printf("Code length: %d\n", codeAttribute->code_length);
     printf("Code: \n");
     for(int i = 0; i < 11; i++) {
-        printf("aaaaaaa\n");
-        printf("%x ", codeAttribute->code[i]);
+        printf("%02x ", codeAttribute->code[i]);
         // printar o opcode
     }
     printf("\n");

@@ -5,6 +5,8 @@
     "referencias.h": "c",
     "leitores.h": "c",
     "erros.h": "c",
-    "class-file.h": "c"
+    "class-file.h": "c",
+    "string.h": "c",
+    "attributes.h": "c"
   }
 }
