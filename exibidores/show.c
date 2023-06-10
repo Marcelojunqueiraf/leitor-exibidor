@@ -194,13 +194,9 @@ void showField(field_info * field, cp_info * constant_pool) {
     printAccessFlag(field->access_flags);
     printf("\n");
 
-    printf("- name index: %d ", field->name_index);
-    // getUtf8(fields, field->name_index); // FIXME: não printa nada
-    printf("\n");
+    printf("- name index: %d %s\n", field->name_index, getUtf8(constant_pool, field->name_index));
 
-    printf("- descriptor_index: %d ", field->descriptor_index);
-    // getUtf8(fields, field->descriptor_index); // FIXME: não printa nada
-    printf("\n");
+    printf("- descriptor_index: %d %s\n", field->descriptor_index, getUtf8(constant_pool, field->descriptor_index));
 
     printf("- attributes_count: %d\n", field->attributes_count);
 
