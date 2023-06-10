@@ -142,103 +142,84 @@ typedef struct {
   u2 constantvalue_index;
 } ConstantValue_attribute;
 
-typedef struct {
-  u2 attribute_name_index;
-  u4 attribute_length;
-  u2 number_of_entries;
-  stack_map_frame * entries; // Alocar com number_of_entries
-} StackMapTable_attribute;
+// typedef struct {} Top_variable_info;
+// typedef struct {} Integer_variable_info;
+// typedef struct {} Float_variable_info;
+// typedef struct {} Null_variable_info;
+// typedef struct {} UninitializedThis_variable_info;
+// typedef struct {} Long_variable_info;
+// typedef struct {} Double_variable_info;
+// typedef struct {
+//  u2 cpool_index;
+// } Object_variable_info;
+// typedef struct {
+//  u2 offset;
+// } Uninitialized_variable_info;
 
-typedef union {
-  same_frame;
-  same_locals_1_stack_item_frame;
-  same_locals_1_stack_item_frame_extended;
-  chop_frame;
-  same_frame_extended;
-  append_frame;
-  full_frame;
-} stack_map_frame;
+// typedef struct {
+//   u1 tag;
+//   union {
+//     Top_variable_info;
+//     Integer_variable_info;
+//     Float_variable_info;
+//     Long_variable_info;
+//     Double_variable_info;
+//     Null_variable_info;
+//     UninitializedThis_variable_info;
+//     Object_variable_info;
+//     Uninitialized_variable_info;
+//   };
+// } verification_type_info;
 
-typedef struct {
-  u1 frame_type; // = SAME; /* 0-63 */
-} same_frame;
 
-typedef struct {
-  u1 frame_type; // = SAME_LOCALS_1_STACK_ITEM; /* 64-127 */
-  verification_type_info * stack; // Alocar com 1
-} same_locals_1_stack_item_frame;
+// typedef struct {} same_frame;
 
-typedef struct {
-  u1 frame_type; // = SAME_LOCALS_1_STACK_ITEM_EXTENDED; /* 247 */
-  u2 offset_delta;
-  verification_type_info * stack; // Alocar com 1
-} same_locals_1_stack_item_frame_extended;
+// typedef struct {
+//   verification_type_info * stack; // Alocar com 1
+// } same_locals_1_stack_item_frame;
 
-typedef struct {
-  u1 frame_type; // = CHOP; /* 248-250 */
-  u2 offset_delta;
-} chop_frame;
+// typedef struct {
+//   verification_type_info * stack; // Alocar com 1
+// } same_locals_1_stack_item_frame_extended;
 
-typedef struct {
-  u1 frame_type; // = SAME_FRAME_EXTENDED; /* 251 */
-  u2 offset_delta;
-} same_frame_extended;
+// typedef struct {} chop_frame;
 
-typedef struct {
-  u1 frame_type; // = APPEND; /* 252-254 */
-  u2 offset_delta;
-  verification_type_info * locals; // Alocar com frame_type - 251
-} append_frame;
+// typedef struct {} same_frame_extended;
 
-typedef struct {
-  u1 frame_type; // = FULL_FRAME; /* 255 */
-  u2 offset_delta;
-  u2 number_of_locals;
-  verification_type_info * locals; // Alocar com number_of_locals
-  u2 number_of_stack_items;
-  verification_type_info * stack; // Alocar com number_of_stack_items
-} full_frame;
+// typedef struct {
+//   verification_type_info * locals; // Alocar com frame_type - 251
+// } append_frame;
 
-typedef union {
-  Top_variable_info;
-  Integer_variable_info;
-  Float_variable_info;
-  Long_variable_info;
-  Double_variable_info;
-  Null_variable_info;
-  UninitializedThis_variable_info;
-  Object_variable_info;
-  Uninitialized_variable_info;
-} verification_type_info;
+// typedef struct {
+//   u2 number_of_locals;
+//   verification_type_info * locals; // Alocar com number_of_locals
+//   u2 number_of_stack_items;
+//   verification_type_info * stack; // Alocar com number_of_stack_items
+// } full_frame;
 
-typedef struct {
- u1 tag; /* ITEM_Top 0 */
-} Top_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Integer 1 */
-} Integer_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Float 2 */
-} Float_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Null 5 */
-} Null_variable_info;
-typedef struct {
- u1 tag; /* ITEM_UninitializedThis 6 */
-} UninitializedThis_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Object 7 */
- u2 cpool_index;
-} Object_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Uninitialized 8 */
- u2 offset;
-} Uninitialized_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Long 4 */
-} Long_variable_info;
-typedef struct {
- u1 tag; /* ITEM_Double 3 */
-} Double_variable_info;
+// typedef struct {
+//   u1 frame_type;
+//   union {
+//     same_frame;
+//     same_locals_1_stack_item_frame;
+//     struct {
+//       u2 offset_delta;
+//       union {
+//         append_frame;
+//         same_frame_extended;
+//         same_locals_1_stack_item_frame_extended;
+//         chop_frame;
+//         full_frame;
+//       };
+//     };
+//   };
+// } stack_map_frame;
+
+// typedef struct {
+//   u2 attribute_name_index;
+//   u4 attribute_length;
+//   u2 number_of_entries;
+//   stack_map_frame * entries; // Alocar com number_of_entries
+// } StackMapTable_attribute;
 
 #endif
