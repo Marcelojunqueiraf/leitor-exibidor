@@ -34,12 +34,13 @@ int readClassFile(char path[], ClassFile* classFile){
   printf("pool count: %d\n", classFile->constant_pool_count);
 
   classFile->constant_pool = malloc((classFile->constant_pool_count+1) * sizeof (cp_info));
-  for(u2 cp_index = 1; cp_index < classFile->constant_pool_count; cp_index++){
-    cp_info * constant = &(classFile->constant_pool[cp_index]);
-
+  cp_info * begin = classFile->constant_pool +1;
+  cp_info * end = begin + classFile->constant_pool_count -1;
+  int cp_index = 1;
+  for(cp_info * constant = begin; constant < end; constant++){
     constant->tag = readU1(fp);
     printf("index: %d, tag: %d, ", cp_index, constant->tag);
-  
+    cp_index += 1;
     switch (constant->tag){
       case 7: // class
         printf("Constant class\n");
