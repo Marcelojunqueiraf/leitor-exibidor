@@ -26,7 +26,9 @@ void showInformacoesGerais(ClassFile classFile) {
     printf("Magic number: 0x%X\n", classFile.magic_number);
     printf("Versão do java: %d.%d\n", classFile.major_version, classFile.minor_version);
     printf("Pool count: %d\n", classFile.constant_pool_count);
-    printf("Access flags: 0x%X\n", classFile.access_flags);
+    printf("Access flags: 0x%X ", classFile.access_flags);
+    printAccessFlag(classFile.access_flags);
+    printf("\n");
 
     printf("This class: %d ", classFile.this_class);
     printf("%s", getUtf8(classFile.constant_pool, classFile.this_class));
@@ -80,7 +82,7 @@ void showAttributes(ClassFile classFile) {
 
 void showConstant(cp_info * constant_pool, cp_info * constant, u2 index) {
     printf("\n---- Constante [%d] ----\n", index);
-
+    printf("Tag: %d ", constant->tag);
     switch (constant->tag) {
         case 7: // class
             printf("Constant class\n");
@@ -155,7 +157,7 @@ void showConstant(cp_info * constant_pool, cp_info * constant, u2 index) {
             printf("\n");
             break;
         case 1: // utf8
-            printf("utf8: \"%s\"\n", getUtf8(constant_pool, index));
+            printf("utf8: \n\"%s\"\n", getUtf8(constant_pool, index));
             break;
         case 15: // MethodHandle
             printf("Method Hanlde\n");
