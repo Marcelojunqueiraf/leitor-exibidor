@@ -22,10 +22,13 @@ void readAttribute(cp_info * constant_pool, attribute_info * attribute, FILE* fp
 
     printf("attribute_type: %s\n", attributeType);
 
-    if (!strcmp(attributeType, "Code"))
+    if      (!strcmp(attributeType, "Code"))
         readCodeAttribute(constant_pool, (code_attribute *) attribute->info, fp, attribute->attribute_length);
     else if (!strcmp(attributeType, "LineNumberTable")) {
             readLineNumberTableAttribute(constant_pool, (LineNumberTable_attribute *) attribute->info, fp, attribute->attribute_length);
+    }
+    else if (!strcmp(attributeType, "SourceFile")) {
+            readSourceFileAttribute(constant_pool, (SourceFile_attribute *) attribute->info, fp, attribute->attribute_length);
     }
     else {
       for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
@@ -78,4 +81,9 @@ void readLineNumberTableAttribute(cp_info * constant_pool, LineNumberTable_attri
         info->line_number_table[i].line_number = readU2(fp);
         printf("line_number: %d\n", info->line_number_table[i].line_number);
     }
+}
+
+void readSourceFileAttribute(cp_info * constant_pool, SourceFile_attribute * info, FILE* fp, u2 attribute_length) {
+    info->sourcefile_index = readU2(fp);
+    printf("sourcefile_index: %d\n", info->sourcefile_index);
 }

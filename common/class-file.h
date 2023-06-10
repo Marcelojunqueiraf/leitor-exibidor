@@ -132,5 +132,8 @@ typedef struct {
   line_number_table * line_number_table; // Alocar com line_number_table_length
 } LineNumberTable_attribute;
 
+typedef struct {
+  u2 sourcefile_index;
+} SourceFile_attribute;
 
 #endif
