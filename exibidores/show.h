@@ -1,6 +1,6 @@
 #include "../common/class-file.h"
 #include "../common/int-types.h"
-#include "attribute.h"
+
 
 #ifndef	SHOW_H
 #define SHOW_H

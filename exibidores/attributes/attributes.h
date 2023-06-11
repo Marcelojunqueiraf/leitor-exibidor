@@ -1,5 +1,5 @@
-#include "../common/class-file.h"
-#include "../common/int-types.h"
+#include "../../common/class-file.h"
+#include "../../common/int-types.h"
 
 #ifndef SHOW_ATTRIBUTE_H
 #define SHOW_ATTRIBUTE_H
