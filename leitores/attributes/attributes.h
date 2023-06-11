@@ -1,7 +1,5 @@
 #include "../../common/class-file.h"
 #include "../read-bytes.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 #ifndef READ_ATTRIBUTES_H
 #define READ_ATTRIBUTES_H

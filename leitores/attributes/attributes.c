@@ -1,6 +1,8 @@
 #include "attributes.h"
 #include "../../common/get-utf8.h"
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void readAttributes(cp_info * constant_pool, attribute_info * attributes, FILE * fp, u2 attributes_count) {
     for (u2 i = 0; i < attributes_count; i++) {

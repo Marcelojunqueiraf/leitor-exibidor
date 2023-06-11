@@ -1,4 +1,6 @@
 #include "attributes.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void readCodeAttribute(cp_info * constant_pool, code_attribute * info, FILE * fp, u2 attribute_length) {
     info->max_stack = readU2(fp);

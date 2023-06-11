@@ -1,4 +1,6 @@
 #include "attributes.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void readLineNumberTableAttribute(cp_info * constant_pool, LineNumberTable_attribute * info, FILE* fp, u2 attribute_length) {
     info->line_number_table_length = readU2(fp);
