@@ -19,7 +19,10 @@ void showAttribute(attribute_info * attribute, cp_info * constant_pool) {
     char * attributeType = getUtf8(constant_pool, attribute->attribute_name_index);
 
     printf("Attribute length: %d\n", attribute->attribute_length);
-    if(strcmp(attributeType, "Code") == 0) {
+    if(!strcmp(attributeType, "Code")) {
         showCodeAttribute((code_attribute *) attribute->info, constant_pool);
+    }
+    else if (!strcmp(attributeType, "LineNumberTable")) {
+        showLineNumberTableAttribute((LineNumberTable_attribute *) attribute->info);
     }
 }

@@ -8,5 +8,6 @@ void showAttributes(cp_info * constant_pool, attribute_info * attributes, u2 att
 void showAttribute(attribute_info * attribute, cp_info * constant_pool);
 
 void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool);
+void showLineNumberTableAttribute(LineNumberTable_attribute * lineNumberTableAttribute);
 
 #endif
