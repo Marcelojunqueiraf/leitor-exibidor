@@ -8,6 +8,7 @@ char * getUtf8(cp_info * constant_pool, u2 index) {
     switch (constant->tag) {
         case 1: { // UTF8
             char * string = (char *) malloc((constant->CONSTANT_Utf8.length+1)*sizeof(char));
+            
             for(int i=0; i<constant->CONSTANT_Utf8.length; i++) {
                 string[i] = constant->CONSTANT_Utf8.bytes[i];
             }

@@ -13,6 +13,9 @@ void showAttribute(attribute_info * attribute, cp_info * constant_pool);
 void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool);
 void showLineNumberTableAttribute(LineNumberTable_attribute * lineNumberTableAttribute);
 void showSourceFileAttribute(SourceFile_attribute * sourceFileAttribute, cp_info * constant_pool);
+void showExceptionsAttribute(Exceptions_attribute * exceptionsAttribute, cp_info * constant_pool);
+void showConstantValueAttribute(ConstantValue_attribute * constantValueAttribute, cp_info * constant_pool);
+void showInnerClassesAttribute(InnerClasses_attribute * innerClassesAttribute, cp_info * constant_pool);
 
 void showInstructions(u1 * code, u2 length, cp_info * constant_pool);
 

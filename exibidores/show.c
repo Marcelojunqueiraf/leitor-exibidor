@@ -127,7 +127,8 @@ void showConstant(cp_info *constant_pool, cp_info *constant, u2 index)
     case 7:
     { // class
         printf("Constant class\n");
-        printf(" name_index: %d ", constant->CONSTANT_Class.name_index);
+        printf("- name_index: %d ", constant->CONSTANT_Class.name_index);
+        printf("\n");
         printf("%s", getUtf8(constant_pool, constant->CONSTANT_Class.name_index));
         printf("\n");
         break;

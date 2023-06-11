@@ -30,6 +30,18 @@ void showAttribute(attribute_info *attribute, cp_info *constant_pool)
     else if (!strcmp(attributeType, "SourceFile"))
     {
         showSourceFileAttribute((SourceFile_attribute *)attribute->info, constant_pool);
+    } 
+    else if (!strcmp(attributeType, "Exceptions")) 
+    {
+        showExceptionsAttribute((Exceptions_attribute *)attribute->info, constant_pool);
+    }
+    else if (!strcmp(attributeType, "ConstantValue"))
+    {
+        showConstantValueAttribute((ConstantValue_attribute *)attribute->info, constant_pool);
+    }
+    else if (!strcmp(attributeType, "InnerClasses"))
+    {
+        showInnerClassesAttribute((InnerClasses_attribute *)attribute->info, constant_pool);
     }
     else
     {
@@ -40,5 +52,26 @@ void showAttribute(attribute_info *attribute, cp_info *constant_pool)
             printf("%02x ", *info);
         }
         printf("\n");
+    }
+}
+
+void showExceptionsAttribute(Exceptions_attribute * exceptionsAttribute, cp_info * constant_pool) {
+    printf("Number of exceptions: %d\n", exceptionsAttribute->number_of_exceptions);
+    for (u2 i = 0; i < exceptionsAttribute->number_of_exceptions; i++) {
+        printf("Exception index table: %d\n", exceptionsAttribute->exception_index_table[i]);
+    }
+}
+
+void showConstantValueAttribute(ConstantValue_attribute * constantValueAttribute, cp_info * constant_pool) {
+    printf("Constant value index: %d\n", constantValueAttribute->constantvalue_index);
+}
+
+void showInnerClassesAttribute(InnerClasses_attribute * innerClassesAttribute, cp_info * constant_pool) {
+    printf("Number of classes: %d\n", innerClassesAttribute->number_of_classes);
+    for (u2 i = 0; i < innerClassesAttribute->number_of_classes; i++) {
+        printf("Inner class info index: %d\n", innerClassesAttribute->classes[i].inner_class_info_index);
+        printf("Outer class info index: %d\n", innerClassesAttribute->classes[i].outer_class_info_index);
+        printf("Inner name index: %d\n", innerClassesAttribute->classes[i].inner_name_index);
+        printf("Inner class access flags: %d\n", innerClassesAttribute->classes[i].inner_class_access_flags);
     }
 }
