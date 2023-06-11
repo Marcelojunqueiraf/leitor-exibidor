@@ -1,6 +1,7 @@
-#include "../common/class-file.h"
+#include "../../common/class-file.h"
+#include "../read-bytes.h"
 #include <stdio.h>
-#include "read-bytes.h"
+#include <stdlib.h>
 
 #ifndef ATTRIBUTES_H
 #define ATTRIBUTES_H
