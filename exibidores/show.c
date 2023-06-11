@@ -25,10 +25,10 @@ int showClassFile(ClassFile classFile) {
 void showInformacoesGerais(ClassFile classFile) {
     printf("----- Informações Gerais -----\n");
 
-    printf("Magic number: 0x%X\n", classFile.magic_number);
+    printf("Magic number: 0x%04X\n", classFile.magic_number);
     printf("Versão do java: %d.%d\n", classFile.major_version, classFile.minor_version);
     printf("Pool count: %d\n", classFile.constant_pool_count);
-    printf("Access flags: 0x%X %s\n", classFile.access_flags, getAccessFlag(classFile.access_flags));
+    printf("Access flags: 0x%04X %s\n", classFile.access_flags, getAccessFlag(classFile.access_flags));
 
     printf("This class: %d ", classFile.this_class);
     printf("%s", getUtf8(classFile.constant_pool, classFile.this_class));
@@ -47,7 +47,7 @@ void showInformacoesGerais(ClassFile classFile) {
 void showConstantPool(ClassFile classFile) {
     printf("\n----- Pool de Constantes -----\n");
 
-    cp_info * begin = classFile.constant_pool +1;
+    cp_info * begin = classFile.constant_pool + 1;
     cp_info * end = classFile.constant_pool_count + classFile.constant_pool;
     int i = 1;
     for(cp_info * constant = begin; constant < end; constant++) {
@@ -56,8 +56,14 @@ void showConstantPool(ClassFile classFile) {
 }
 
 void showInterfaces(ClassFile classFile) {
-  printf("\n----- Interfaces -----\n");
+    printf("\n----- Interfaces -----\n");
 
+    u2 * begin = classFile.interfaces;
+    u2 * end = classFile.interfaces + classFile.interfaces_count;
+    int i = 0;
+    for(u2 * interface = begin; interface < end; interface++) {
+        showInterface(*interface, classFile.constant_pool, i++);
+    }
 }
 
 void showFields(ClassFile classFile) {
@@ -84,7 +90,7 @@ void showMethods(ClassFile classFile) {
 void showMethod(method_info * method, cp_info * constant_pool, u2 index){
     printf("\n---- Método [%d] ----\n", index);
 
-    printf("Access flags: 0x%X %s\n", method->access_flags, getAccessFlag(method->access_flags));
+    printf("Access flags: 0x%04X %s\n", method->access_flags, getAccessFlag(method->access_flags));
 
     printf("Name index: %d ", method->name_index);
     printf("%s", getUtf8(constant_pool, method->name_index));
@@ -223,6 +229,12 @@ void showField(field_info * field, cp_info * constant_pool, u2 index) {
 
     // TODO: listar attributes
     showAttributes(constant_pool, field->attributes, field->attributes_count);
+}
+
+void showInterface(u2 interface, cp_info * constant_pool, u2 index) {
+    printf("\n----- Interface [%d] -----\n", index);
+
+    printf("- interface: %d %s\n", interface, getUtf8(constant_pool, interface));
 }
 
 char * getAccessFlag(u1 tag) {
