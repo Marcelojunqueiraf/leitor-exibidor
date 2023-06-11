@@ -831,8 +831,10 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
         }
         case iinc:
         {
-            u2 index = (u2)((code[1] << 8) | code[2]);
-            printf("iinc %d %s\n", index, getUtf8(constant_pool, index));
+            u1 index = code[1];
+            u1 constant = code[2];
+
+            printf("iinc %d %d\n", index, constant);
             code += 3;
             break;
         }
