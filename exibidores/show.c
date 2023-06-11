@@ -184,7 +184,7 @@ void showConstant(cp_info *constant_pool, cp_info *constant, u2 index)
     }
     case 4:
     { // Float
-        printf("Float: %f\n", decodificaFloatInfo(constant->CONSTANT_Float.bytes));
+        printf("Float: %f\n", getFloat(constant->CONSTANT_Float.bytes));
         break;
     }
     case 5:
@@ -195,10 +195,7 @@ void showConstant(cp_info *constant_pool, cp_info *constant, u2 index)
     }
     case 6:
     { // Double
-        printf("Double\n");
-        printf("- high-bytes: %d\n", constant->CONSTANT_Double.high_bytes);
-        printf("- low-bytes: %d\n", constant->CONSTANT_Double.low_bytes);
-        // implementar representação de double
+        printf("Double %lf\n", getDouble(constant->CONSTANT_Double.low_bytes, constant->CONSTANT_Double.high_bytes));
         break;
     }
     case 12:
@@ -305,11 +302,22 @@ char *getAccessFlag(u1 tag)
     return accessFlag;
 }
 
-float decodificaFloatInfo(u4 value)
+float getFloat(u4 value)
 {
     int sinal = ((value >> 31) == 0) ? 1 : -1;
     int expon = ((value >> 23) & 0xff);
     int mant = (expon == 0) ? (value & 0x7fffff) << 1 : (value & 0x7fffff) | 0x800000;
     float retorno = (sinal) * (mant) * (pow(2, expon - 150));
+    return retorno;
+}
+
+double getDouble(u4 low, u4 high)
+{
+    uint64_t valor = ((uint64_t)high << 32) | (uint64_t)low;
+    int sinal = ((valor >> 63) == 0) ? 1 : -1;
+    int expon = ((valor >> 52) & 0x7ffL);
+    long mant = (expon == 0) ? ((valor & 0xfffffffffffffL) << 1) : ((valor & 0xfffffffffffffL) | 0x10000000000000L);
+
+    double retorno = sinal * mant * (pow(2, expon - 1075));
     return retorno;
 }

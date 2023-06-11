@@ -17,5 +17,8 @@ void showField(field_info *field, cp_info *constant_pool, u2 index);
 void showConstant(cp_info *constant_pool, cp_info *constant, u2 index);
 void showMethod(method_info *method, cp_info *constant_pool, u2 index);
 void showInterface(u2 interface, cp_info *constant_pool, u2 index);
-float decodificaFloatInfo(u4 valor);
+
+float getFloat(u4 valor);
+double getDouble(u4 low, u4 high);
+
 #endif
