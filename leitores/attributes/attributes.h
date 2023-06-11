@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef ATTRIBUTES_H
-#define ATTRIBUTES_H
+#ifndef READ_ATTRIBUTES_H
+#define READ_ATTRIBUTES_H
 
 void readAttributes(cp_info * constant_pool, attribute_info * attributes, FILE * fp, u2 attributes_count);
 void readAttribute(cp_info * constant_pool, attribute_info * attribute, FILE* fp);

@@ -1,13 +1,11 @@
 #include "../common/class-file.h"
 #include "../common/int-types.h"
 #include "attribute.h"
-#include "common.h"
 
 #ifndef	SHOW_H
 #define SHOW_H
 
 int showClassFile(ClassFile classFile);
-char * getUtf8(cp_info * constant_pool, u2 index);
 char * getAccessFlag(u1 tag);
 
 void showInformacoesGerais(ClassFile classFile);

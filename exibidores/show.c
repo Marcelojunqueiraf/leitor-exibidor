@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "common.h"
-
+#include "../common/get-utf8.h"
 
 int showClassFile(ClassFile classFile) {
     showInformacoesGerais(classFile);

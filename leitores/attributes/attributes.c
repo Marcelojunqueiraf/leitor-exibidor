@@ -1,5 +1,5 @@
 #include "attributes.h"
-#include "../../exibidores/common.h"
+#include "../../common/get-utf8.h"
 #include <string.h>
 
 void readAttributes(cp_info * constant_pool, attribute_info * attributes, FILE * fp, u2 attributes_count) {

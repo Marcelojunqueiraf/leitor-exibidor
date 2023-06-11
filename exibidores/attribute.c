@@ -1,4 +1,5 @@
 #include "attribute.h"
+#include "../common/get-utf8.h"
 #include <stdio.h>
 #include <string.h>
 
