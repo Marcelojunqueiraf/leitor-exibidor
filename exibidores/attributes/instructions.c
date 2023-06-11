@@ -341,31 +341,31 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
         }
         case istore:
         {
-            printf("istore\n");
+            printf("istore %d\n", code[1]);
             code += 2;
             break;
         }
         case lstore:
         {
-            printf("lstore\n");
+            printf("lstore %d\n", code[1]);
             code += 2;
             break;
         }
         case fstore:
         {
-            printf("fstore\n");
+            printf("fstore %d\n", code[1]);
             code += 2;
             break;
         }
         case dstore:
         {
-            printf("dstore\n");
+            printf("dstore %d\n", code[1]);
             code += 2;
             break;
         }
         case astore:
         {
-            printf("astore\n");
+            printf("astore %d\n", code[1]);
             code += 2;
             break;
         }
@@ -1050,7 +1050,7 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
         }
         case ret:
         {
-            printf("ret\n");
+            printf("ret %d\n", code[1]);
             code += 2;
             break;
         }
@@ -1070,7 +1070,6 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
             code += 4;
 
             // X jumps
-            int32_t numberOfOffsets = (high - low + 1);
             for (int i = low; i <= high; i++)
             {
                 int32_t offset = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
@@ -1213,7 +1212,7 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
         }
         case newarray:
         {
-            printf("newarray\n");
+            printf("newarray %d\n", code[1]);
             code += 2;
             break;
         }

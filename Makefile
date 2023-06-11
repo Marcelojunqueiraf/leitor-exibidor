@@ -7,7 +7,7 @@ EXIBIDORES_ATTRIBUTES = exibidores/attributes/attributes.c exibidores/attributes
 EXIBIDORES = exibidores/show.c $(EXIBIDORES_ATTRIBUTES)
 
 all:
-	gcc $(FLAGS) $(COMMON) $(LEITORES) $(EXIBIDORES) main.c -o $(TARGET)
+	gcc $(FLAGS) $(COMMON) $(LEITORES) $(EXIBIDORES) main.c -lm -o $(TARGET)
 
 clean:
 	rm -f $(TARGET)

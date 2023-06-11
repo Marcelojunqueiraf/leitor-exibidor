@@ -37,7 +37,7 @@ void showAttribute(attribute_info *attribute, cp_info *constant_pool)
         for (u4 info_index = 0; info_index < attribute->attribute_length; info_index++)
         {
             u1 *info = &(attribute->info[info_index]);
-            printf("0x%x ", *info);
+            printf("%02x ", *info);
         }
         printf("\n");
     }
