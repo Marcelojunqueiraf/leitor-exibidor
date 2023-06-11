@@ -106,6 +106,8 @@ int readClassFile(char path[], ClassFile *classFile)
       constant->CONSTANT_InvokeDynamic.name_and_type_index = readU2(fp);
       break;
     default:
+      printf("Tag não reconhecida: %d \nabortando leitura!!\n", constant->tag);
+      exit(1);
     }
   }
 
