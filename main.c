@@ -12,10 +12,10 @@ int main(int argc, char *argv[]) {
   }
 
   readClassFile(argv[1], &classFile);
+
+  printf("\n\n\n");
+
   showClassFile(classFile);
-  
-  // Seria bom separar a leitura da impressão, mas dá muito trabalho
-  // printClassFile(&classFile); 
 
   return 0;
 }
