@@ -21,8 +21,9 @@ void showAttribute(attribute_info * attribute, cp_info * constant_pool) {
     printf("Attribute length: %d\n", attribute->attribute_length);
     if(!strcmp(attributeType, "Code")) {
         showCodeAttribute((code_attribute *) attribute->info, constant_pool);
-    }
-    else if (!strcmp(attributeType, "LineNumberTable")) {
+    } else if (!strcmp(attributeType, "LineNumberTable")) {
         showLineNumberTableAttribute((LineNumberTable_attribute *) attribute->info);
+    } else if (!strcmp(attributeType, "SourceFile")) {
+        showSourceFileAttribute((SourceFile_attribute *) attribute->info, constant_pool);
     }
 }

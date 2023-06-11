@@ -9,5 +9,6 @@ void showAttribute(attribute_info * attribute, cp_info * constant_pool);
 
 void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool);
 void showLineNumberTableAttribute(LineNumberTable_attribute * lineNumberTableAttribute);
+void showSourceFileAttribute(SourceFile_attribute * sourceFileAttribute, cp_info * constant_pool);
 
 #endif
