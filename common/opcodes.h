@@ -1,7 +1,7 @@
 #ifndef OPCODES_H
 #define OPCODES_H
 
-enum opcode {
+enum opcodes {
     nop = 0x00,
     aconst_null = 0x01,
     iconst_m1 = 0x02,

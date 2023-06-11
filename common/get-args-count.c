@@ -1,6 +1,6 @@
 #include "get-args-count.h"
 
-u2 get_args_count(enum opcode op) {
+u2 get_args_count(enum opcodes op) {
     switch (op) {
         case nop: return 0;
         case aconst_null: return 0;
