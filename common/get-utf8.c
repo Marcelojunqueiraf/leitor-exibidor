@@ -1,10 +1,10 @@
 #include "get-utf8.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 char * getUtf8(cp_info * constant_pool, u2 index) {
     cp_info * constant = constant_pool + index;
-    
     switch (constant->tag) {
         case 1: { // UTF8
             char * string = (char *) malloc((constant->CONSTANT_Utf8.length+1)*sizeof(char));

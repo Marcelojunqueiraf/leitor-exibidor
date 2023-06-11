@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "../../common/opcodes.h"
 #include <stdlib.h>
+#include <stdint.h>
 
 void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
 {
@@ -1033,9 +1034,9 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
             break;
         }
         case inst_goto:
-        {
-            u2 index = (u2)((code[1] << 8) | code[2]);
-            printf("inst_goto %d %s\n", index, getUtf8(constant_pool, index));
+        { 
+            int16_t index = (int16_t)((code[1] << 8) | code[2]);
+            printf("goto %d\n", index);
             code += 3;
             break;
         }
