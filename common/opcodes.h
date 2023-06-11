@@ -1,5 +1,7 @@
+#ifndef OPCODES_H
+#define OPCODES_H
 
-enum instructions_op {
+enum opcode {
     nop = 0x00,
     aconst_null = 0x01,
     iconst_m1 = 0x02,
@@ -202,3 +204,5 @@ enum instructions_op {
     goto_w = 0xc8,
     jsr_w = 0xc9,
 };
+
+#endif

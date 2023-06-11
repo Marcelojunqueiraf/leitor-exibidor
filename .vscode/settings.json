@@ -8,6 +8,8 @@
     "class-file.h": "c",
     "string.h": "c",
     "attributes.h": "c",
-    "get-utf8.h": "c"
+    "get-utf8.h": "c",
+    "opcodes.h": "c",
+    "get-args-count.h": "c",
   }
 }
