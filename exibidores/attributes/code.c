@@ -6,7 +6,7 @@ void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool) 
     printf("Max locals: %d\n", codeAttribute->max_locals);
     printf("Code length: %d\n", codeAttribute->code_length);
     printf("Code: \n");
-    for(int i = 0; i < 11; i++) {
+    for(int i = 0; i < codeAttribute->code_length; i++) {
         printf("%02x ", codeAttribute->code[i]);
         // printar o opcode
     }
