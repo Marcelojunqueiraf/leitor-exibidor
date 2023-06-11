@@ -172,8 +172,8 @@ u2 get_args_count(enum opcode op) {
         case inst_goto: return 0;
         case jsr: return 0;
         case ret: return 0;
-        case tableswitch: return 0;
-        case lookupswitch: return 0;
+        case tableswitch: return 0; // FIXME: Não sei quantos são aaaa
+        case lookupswitch: return 0; // FIXME: Não sei quantos são aaaa
         case ireturn: return 0;
         case lreturn: return 0;
         case freturn: return 0;
