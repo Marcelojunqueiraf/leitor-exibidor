@@ -6,6 +6,7 @@
 
 void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
 {
+    u1 *begin = code;
     u1 *end = code + length;
     while (code < end)
     {
@@ -1034,7 +1035,7 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
             break;
         }
         case inst_goto:
-        { 
+        {
             int16_t index = (int16_t)((code[1] << 8) | code[2]);
             printf("goto %d\n", index);
             code += 3;
@@ -1055,20 +1056,47 @@ void showInstructions(u1 *code, u2 length, cp_info *constant_pool)
         }
         case tableswitch:
         {
-            // TODO: implementar
             printf("tableswitch\n");
-            printf("instrucao nao suportada\n");
-            exit(1);
-            code += 17; // pode ser 16+ args
+            // padding (ir para um múltiplo de 4)
+            code += 4 - (code-begin)%4;
+            
+            int32_t default_value = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+            code += 4;
+            
+            int32_t low = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+            code += 4;
+
+            int32_t high = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+            code += 4;
+            
+            // X jumps
+            int32_t numberOfOffsets = (high - low + 1);
+            code += numberOfOffsets;
+
             break;
         }
         case lookupswitch:
         {
-            // TODO: implementar
-            printf("lookupswitch\n");
-            printf("instrucao nao suportada\n");
-            exit(1);
-            code += 9; // pode ser 8+ args
+            // opcode + padding + default + npairs + 8*npairs
+            // 1      + p?      + 4       + 4      + 8*npairs
+            printf("lookupswitch ");
+
+            code += 4 - (code-begin)%4; // Pula os paddings
+            int32_t default_value = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+            code += 4;
+            int32_t n_pairs = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+            code += 4;
+
+            printf("%d\n", n_pairs);
+            for (int i = 0; i < n_pairs; i++) {
+                int32_t fst = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+                code += 4;
+                int32_t snd = (int32_t)((code[0] << 24) | (code[1] << 16) | (code[2] << 8) | code[3]);
+                code += 4;
+                printf("\t%d: %d\n", fst, snd);
+            }   
+            printf("\tdefault: %d\n", default_value);
+
             break;
         }
         case ireturn:
