@@ -137,6 +137,12 @@ typedef struct {
 } SourceFile_attribute;
 
 typedef struct {
+  u2 number_of_exceptions;
+  u2 * exception_index_table; // Alocar com number_of_exceptions
+} Exceptions_attribute;
+
+
+typedef struct {
   u2 attribute_name_index;
   u4 attribute_length;
   u2 constantvalue_index;

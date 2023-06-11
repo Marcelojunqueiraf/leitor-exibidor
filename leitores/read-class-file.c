@@ -96,6 +96,8 @@ int readClassFile(char path[], ClassFile* classFile){
         constant->CONSTANT_Double.low_bytes = readU4(fp);
         printf("- high-bytes: %d\n", constant->CONSTANT_Double.high_bytes);
         printf("- low-bytes: %d\n", constant->CONSTANT_Double.low_bytes);
+        constant++;
+        cp_index++;
         break;
       case 12: // NameAndType
         printf("Name and Type\n");

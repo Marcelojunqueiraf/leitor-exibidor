@@ -23,11 +23,13 @@ void readAttribute(cp_info * constant_pool, attribute_info * attribute, FILE* fp
     printf("attribute_type: %s\n", attributeType);
 
     if (!strcmp(attributeType, "Code")) {
-        readCodeAttribute(constant_pool, (code_attribute *) attribute->info, fp, attribute->attribute_length);
+        readCodeAttribute(constant_pool, (code_attribute *) attribute->info, fp);
     } else if (!strcmp(attributeType, "LineNumberTable")) {
-        readLineNumberTableAttribute(constant_pool, (LineNumberTable_attribute *) attribute->info, fp, attribute->attribute_length);
+        readLineNumberTableAttribute(constant_pool, (LineNumberTable_attribute *) attribute->info, fp);
     } else if (!strcmp(attributeType, "SourceFile")) {
-        readSourceFileAttribute(constant_pool, (SourceFile_attribute *) attribute->info, fp, attribute->attribute_length);
+        readSourceFileAttribute(constant_pool, (SourceFile_attribute *) attribute->info, fp);
+    } else if (!strcmp(attributeType, "Exceptions")) {
+        readExceptionsAttribute(constant_pool, (Exceptions_attribute *) attribute->info, fp);
     } else {
       for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
         u1* info = &(attribute->info[info_index]);
@@ -35,3 +37,12 @@ void readAttribute(cp_info * constant_pool, attribute_info * attribute, FILE* fp
       }
     }
 }
+
+void readExceptionsAttribute(cp_info * constant_pool, Exceptions_attribute * info, FILE* fp) {
+    info->number_of_exceptions = readU2(fp);
+    info->exception_index_table = malloc(sizeof(u2) * info->number_of_exceptions);
+    for (u2 i = 0; i < info->number_of_exceptions; i++) {
+        info->exception_index_table[i] = readU2(fp);
+    }
+}
+

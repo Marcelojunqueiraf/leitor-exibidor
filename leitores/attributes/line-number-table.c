@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void readLineNumberTableAttribute(cp_info * constant_pool, LineNumberTable_attribute * info, FILE* fp, u2 attribute_length) {
+void readLineNumberTableAttribute(cp_info * constant_pool, LineNumberTable_attribute * info, FILE* fp) {
     info->line_number_table_length = readU2(fp);
     printf("line_number_table_length: %d\n", info->line_number_table_length);
 

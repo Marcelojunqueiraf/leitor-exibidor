@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void readCodeAttribute(cp_info * constant_pool, code_attribute * info, FILE * fp, u2 attribute_length) {
+void readCodeAttribute(cp_info * constant_pool, code_attribute * info, FILE * fp) {
     info->max_stack = readU2(fp);
     printf("max_stack: %d\n", info->max_stack);
     info->max_locals = readU2(fp);
