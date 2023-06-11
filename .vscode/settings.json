@@ -2,14 +2,7 @@
   "C_Cpp.errorSquiggles": "enabled",
   "files.associations": {
     "*.mjml": "mjml",
-    "referencias.h": "c",
-    "leitores.h": "c",
-    "erros.h": "c",
-    "class-file.h": "c",
-    "string.h": "c",
-    "attributes.h": "c",
-    "get-utf8.h": "c",
-    "opcodes.h": "c",
-    "get-args-count.h": "c",
+    "*.c": "c",
+    "*.h": "c"
   }
 }
