@@ -234,7 +234,7 @@ void showField(field_info * field, cp_info * constant_pool, u2 index) {
 void showInterface(u2 interface, cp_info * constant_pool, u2 index) {
     printf("\n----- Interface [%d] -----\n", index);
 
-    printf("- interface: %d %s\n", interface, getUtf8(constant_pool, interface));
+    printf("interface: %d %s\n", interface, getUtf8(constant_pool, interface));
 }
 
 char * getAccessFlag(u1 tag) {
