@@ -12,7 +12,14 @@ void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool) 
     }
     printf("\n");
     printf("Exception table length: %d\n", codeAttribute->exception_table_length);
-    // show exception table
+    
+    for (int i = 0; i < codeAttribute->exception_table_length; i++) {
+        printf("Start pc: %d\n", codeAttribute->exception_table[i].start_pc);
+        printf("End pc: %d\n", codeAttribute->exception_table[i].end_pc);
+        printf("Handler pc: %d\n", codeAttribute->exception_table[i].handler_pc);
+        printf("Catch type: %d\n", codeAttribute->exception_table[i].catch_type);
+    }
+
     printf("Attributes count: %d\n", codeAttribute->attributes_count);
     showAttributes(constant_pool, codeAttribute->attributes, codeAttribute->attributes_count);
 }
