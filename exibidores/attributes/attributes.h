@@ -1,5 +1,8 @@
 #include "../../common/class-file.h"
 #include "../../common/int-types.h"
+#include "../../common/get-utf8.h"
+#include <stdio.h>
+#include <string.h>
 
 #ifndef SHOW_ATTRIBUTE_H
 #define SHOW_ATTRIBUTE_H
@@ -10,5 +13,7 @@ void showAttribute(attribute_info * attribute, cp_info * constant_pool);
 void showCodeAttribute(code_attribute * codeAttribute, cp_info * constant_pool);
 void showLineNumberTableAttribute(LineNumberTable_attribute * lineNumberTableAttribute);
 void showSourceFileAttribute(SourceFile_attribute * sourceFileAttribute, cp_info * constant_pool);
+
+void showInstructions(u1 * code, u2 length, cp_info * constant_pool);
 
 #endif

@@ -1,7 +1,4 @@
 #include "attributes.h"
-#include "../../common/get-utf8.h"
-#include <stdio.h>
-#include <string.h>
 
 void showAttributes(cp_info * constant_pool, attribute_info * attributes, u2 attributes_count) {
     attribute_info * begin = attributes;

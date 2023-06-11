@@ -1,7 +1,8 @@
 #ifndef OPCODES_H
 #define OPCODES_H
 
-enum opcodes {
+enum opcodes
+{
     nop = 0x00,
     aconst_null = 0x01,
     iconst_m1 = 0x02,
@@ -188,13 +189,15 @@ enum opcodes {
     invokespecial = 0xb7,
     invokestatic = 0xb8,
     invokeinterface = 0xb9,
+    invokedynamic = 0xba,
     inst_new = 0xbb,
     newarray = 0xbc,
     anewarray = 0xbd,
     arraylength = 0xbe,
     athrow = 0xbf,
     checkcast = 0xc0,
-    instanceof = 0xc1,
+    instanceof
+    = 0xc1,
     monitorenter = 0xc2,
     monitorexit = 0xc3,
     wide = 0xc4,
