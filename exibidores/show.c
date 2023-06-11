@@ -191,7 +191,7 @@ void showConstant(cp_info *constant_pool, cp_info *constant, u2 index)
     case 5:
     { // Long
         int64_t longValue = ((int64_t)constant->CONSTANT_Long.high_bytes << 32) | constant->CONSTANT_Long.low_bytes;
-        printf("Long: %ld\n", longValue);
+        printf("Long: %lld\n", longValue);
         break;
     }
     case 6:
