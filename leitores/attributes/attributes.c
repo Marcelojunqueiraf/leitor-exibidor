@@ -30,6 +30,8 @@ void readAttribute(cp_info * constant_pool, attribute_info * attribute, FILE* fp
         readConstantValueAttribute(constant_pool, (ConstantValue_attribute *) attribute->info, fp);
     } else if (!strcmp(attributeType, "InnerClasses")) {
         readInnerClassesAttribute(constant_pool, (InnerClasses_attribute *) attribute->info, fp);
+    } else if (!strcmp(attributeType, "LocalVariableTable")) {
+        readLocalVariableTableAttribute(constant_pool, (LocalVariableTable_attribute *) attribute->info, fp);
     } else {
       for(u4 info_index = 0; info_index < attribute->attribute_length; info_index++){
         u1* info = &(attribute->info[info_index]);
@@ -61,3 +63,14 @@ void readInnerClassesAttribute(cp_info * constant_pool, InnerClasses_attribute *
     }
 }
 
+void readLocalVariableTableAttribute(cp_info *constant_pool, LocalVariableTable_attribute *info, FILE *fp) {
+    info->local_variable_table_length = readU2(fp);
+    info->local_variable_table = malloc(sizeof(local_variable_table) * info->local_variable_table_length);
+    for (u2 i = 0; i < info->local_variable_table_length; i++) {
+        info->local_variable_table[i].start_pc = readU2(fp);
+        info->local_variable_table[i].length = readU2(fp);
+        info->local_variable_table[i].name_index = readU2(fp);
+        info->local_variable_table[i].descriptor_index = readU2(fp);
+        info->local_variable_table[i].index = readU2(fp);
+    }
+}

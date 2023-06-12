@@ -16,6 +16,7 @@ void showSourceFileAttribute(SourceFile_attribute * sourceFileAttribute, cp_info
 void showExceptionsAttribute(Exceptions_attribute * exceptionsAttribute, cp_info * constant_pool);
 void showConstantValueAttribute(ConstantValue_attribute * constantValueAttribute, cp_info * constant_pool);
 void showInnerClassesAttribute(InnerClasses_attribute * innerClassesAttribute, cp_info * constant_pool);
+void showLocalVariableTableAttribute(LocalVariableTable_attribute * localVariableTableAttribute, cp_info * constant_pool);
 
 void showInstructions(u1 * code, u2 length, cp_info * constant_pool);
 

@@ -12,5 +12,6 @@ void readSourceFileAttribute(cp_info * constant_pool, SourceFile_attribute * inf
 void readExceptionsAttribute(cp_info * constant_pool, Exceptions_attribute * info, FILE* fp);
 void readConstantValueAttribute(cp_info * constant_pool, ConstantValue_attribute * info, FILE* fp);
 void readInnerClassesAttribute(cp_info * constant_pool, InnerClasses_attribute * info, FILE* fp);
+void readLocalVariableTableAttribute(cp_info * constant_pool, LocalVariableTable_attribute * info, FILE* fp);
 
 #endif

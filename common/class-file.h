@@ -157,4 +157,17 @@ typedef struct {
   classes * classes; // Alocar com number_of_classes
 } InnerClasses_attribute;
 
+typedef struct { 
+  u2 start_pc;
+  u2 length;
+  u2 name_index;
+  u2 descriptor_index;
+  u2 index;
+} local_variable_table;
+
+typedef struct {
+  u2 local_variable_table_length;
+  local_variable_table * local_variable_table; // Alocar com local_variable_table_length
+} LocalVariableTable_attribute;
+
 #endif

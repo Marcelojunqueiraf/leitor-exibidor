@@ -43,6 +43,10 @@ void showAttribute(attribute_info *attribute, cp_info *constant_pool)
     {
         showInnerClassesAttribute((InnerClasses_attribute *)attribute->info, constant_pool);
     }
+    else if (!strcmp(attributeType, "LocalVariableTable"))
+    {
+        showLocalVariableTableAttribute((LocalVariableTable_attribute *)attribute->info, constant_pool);
+    }
     else
     {
         printf("Attribute info: ");
@@ -73,5 +77,18 @@ void showInnerClassesAttribute(InnerClasses_attribute * innerClassesAttribute, c
         printf("Outer class info index: %d\n", innerClassesAttribute->classes[i].outer_class_info_index);
         printf("Inner name index: %d\n", innerClassesAttribute->classes[i].inner_name_index);
         printf("Inner class access flags: %d\n", innerClassesAttribute->classes[i].inner_class_access_flags);
+    }
+}
+
+void showLocalVariableTableAttribute(LocalVariableTable_attribute *localVariableTableAttribute, cp_info *constant_pool)
+{
+    printf("Local variable table length: %d\n", localVariableTableAttribute->local_variable_table_length);
+    for (u2 i = 0; i < localVariableTableAttribute->local_variable_table_length; i++)
+    {
+        printf("Start pc: %d\n", localVariableTableAttribute->local_variable_table[i].start_pc);
+        printf("Length: %d\n", localVariableTableAttribute->local_variable_table[i].length);
+        printf("Name index: %d\n", localVariableTableAttribute->local_variable_table[i].name_index);
+        printf("Descriptor index: %d\n", localVariableTableAttribute->local_variable_table[i].descriptor_index);
+        printf("Index: %d\n", localVariableTableAttribute->local_variable_table[i].index);
     }
 }
