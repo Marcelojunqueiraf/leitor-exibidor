@@ -12,8 +12,7 @@ void showCodeAttribute(code_attribute *codeAttribute, cp_info *constant_pool)
 
     showInstructions(codeAttribute->code, codeAttribute->code_length, constant_pool);
 
-    printf("\n");
-    printf("Exception table length: %d\n", codeAttribute->exception_table_length);
+    printf("\nException table length: %d\n", codeAttribute->exception_table_length);
 
     for (int i = 0; i < codeAttribute->exception_table_length; i++)
     {

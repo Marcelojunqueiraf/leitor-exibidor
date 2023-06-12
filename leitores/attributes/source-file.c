@@ -4,5 +4,4 @@
 
 void readSourceFileAttribute(cp_info * constant_pool, SourceFile_attribute * info, FILE* fp) {
     info->sourcefile_index = readU2(fp);
-    printf("sourcefile_index: %d\n", info->sourcefile_index);
 }
