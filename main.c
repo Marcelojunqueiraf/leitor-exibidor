@@ -12,9 +12,6 @@ int main(int argc, char *argv[]) {
   }
 
   readClassFile(argv[1], &classFile);
-
-  printf("\n\n\n");
-
   showClassFile(classFile);
 
   return 0;
